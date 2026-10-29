@@ -13,10 +13,9 @@
    gets the same amount of scroll however long its animation is (about one ordinary scroll), then a still stretch
    to read it — so short beats can't be flown past and long ones aren't a slog.
    Clouds, the mark and its subhead playing in on load → the opening line → both stat cards, 'compared to'
-   between them → a wedge of Section 3 opens for the talent lines and wipes on to access → Until now, its star
-   opening the blue → the brand reveal → what Wingspan does → cards → the founding-employer ask → the join.
-   v4 (third feedback round): the section backgrounds, cloudjects and brandmark here are stand-ins, built to
-   swap for the supplied files. Single light look by choice: the brand palette is fixed. */
+   between them → the talent and access lines, still on Section 1 → Until now, whose star then opens by itself
+   into the brand reveal → what Wingspan does → cards on Section 2 → the founding-employer ask → the join, under
+   the hero's clouds. Single light look by choice: the brand palette is fixed. */
 :root{
   --paper:#EFEEEA; --ink:#2A2A2A; --soft:#8E8270;
   --blue:#1D3BCE; --cream:#EFEEEA; --lilac:#CD91E9; --night:#060A26;
@@ -42,14 +41,10 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
   -webkit-mask-image:linear-gradient(#000 calc(var(--f) * 1%),transparent 100%);mask-image:linear-gradient(#000 calc(var(--f) * 1%),transparent 100%)}
 .l-open{z-index:6;pointer-events:none}
 .l-stats{z-index:6;overflow:visible}
-.wedge{pointer-events:none}
 /* Section 1 sits under the opening line and the stats; the brand hero's sky lifts away to uncover it */
 #bgA{z-index:4}
-#wedgeBlue{z-index:8}
 .l-type{z-index:9;display:grid;place-items:center;padding:0 5vw;text-align:center}
 #type,#type2{color:var(--paper)}
-/* the access wedge is the same Section 3 as the talent one, so as it sweeps it only wipes the words */
-#wedgeGrey{z-index:10}
 #type2{z-index:11}
 .l-until{z-index:12;background:var(--paper);display:grid;place-items:center}
 /* the way out: the brand frame itself opens out of the star at the end of 'Until now' (a circle set every frame),
@@ -81,8 +76,6 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 .bg.s1{--b0:#141E7A;--b1:rgba(84,64,206,.9);--b2:rgba(205,145,233,.45);--b3:rgba(43,75,224,.8)}
 /* Section 2: the supplied loop (media/section2.mp4), behind the cards and the tee-up; the gradient is its fallback */
 .bg.s2{--b0:#2445D8;--b1:rgba(111,143,247,.85);--b2:rgba(193,150,233,.6);--b3:rgba(142,165,250,.7)}
-/* Section 3: blue with a lime glow, behind the talent and access lines */
-.bg.s3{--b0:#1D3BCE;--b1:rgba(79,114,240,.9);--b2:rgba(159,217,137,.5);--b3:rgba(40,73,222,.9)}
 /* the brand reveal: a bright sky blue for the cloudjects to float in */
 .bg.sb{--b0:#2B4BE0;--b1:rgba(127,160,255,.9);--b2:rgba(185,201,255,.7);--b3:rgba(79,114,240,.85)}
 /* cloudjects resting in the corners, each bobbing and turning on its own rhythm */
@@ -101,7 +94,6 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 @keyframes float1{0%{transform:translate(0,0) rotate(-4deg)}100%{transform:translate(2.5vmin,3vmin) rotate(5deg)}}
 @keyframes float2{0%{transform:translate(0,0) rotate(6deg) scale(1)}100%{transform:translate(-3vmin,-2vmin) rotate(-3deg) scale(1.05)}}
 @keyframes float3{0%{transform:translate(0,0) rotate(0)}50%{transform:translate(-2vmin,2.5vmin) rotate(8deg)}100%{transform:translate(1.5vmin,-1.5vmin) rotate(-5deg)}}
-.wedge .cj{width:min(30vmin,300px);opacity:.9}
 .l-brand .cj{width:min(44vmin,460px)}
 
 /* ---------- the brandmark: faded into the bottom-right corner of every frame after the hero ---------- */
@@ -153,6 +145,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 .stat-card h3{margin:0;font-size:clamp(76px,10vw,190px);font-weight:900;line-height:.86;letter-spacing:-.05em}
 /* who the number is about, big enough to read at a glance and in the brand lime */
 .stat-card .kicker{display:block;margin-top:.35em;color:#C8F08F;font-size:clamp(18px,1.9vw,34px);font-weight:900;letter-spacing:.04em;line-height:1.05;text-transform:uppercase}
+/* the 3× pops in the lime of the labels, a step up from the line but well short of the number */
+.x3{color:#C8F08F;font-size:1.45em;font-weight:900;letter-spacing:-.02em;line-height:.9}
 /* the phrase that joins the two cards, landing between them */
 .vs{position:relative;flex:0 0 auto;margin:0;color:var(--cream);text-shadow:0 2px 18px rgba(20,42,154,.45);font-size:clamp(20px,2.3vw,42px);font-weight:900;letter-spacing:-.01em;line-height:1;text-align:center;white-space:nowrap}
 .stat-card p{margin:.55em auto 0;max-width:20ch;font-size:clamp(20px,2.1vw,38px);font-weight:800;line-height:1.12;letter-spacing:-.015em}
@@ -242,7 +236,10 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 .ask{text-shadow:0 2px 24px rgba(20,42,154,.4)}
 .ask-t{margin:0;max-width:22ch;font-size:clamp(34px,5.2vw,96px);font-weight:900;line-height:1.04;letter-spacing:-.03em}
 /* '20 founding employers' carries the ask: lilac bar, as the story's key words */
-.ask-t .hl{color:#fff}
+/* '20 founding employers' takes the same lollipop selection as the story, and never breaks across lines */
+#askHl{white-space:nowrap}
+/* on the join, 'London pilot' in the brand lime */
+.pop{color:#C8F08F}
 .join-t{font-size:clamp(44px,7.4vw,140px)}
 .ask-logo{width:clamp(180px,22vw,360px);margin-top:clamp(10px,2vh,28px);color:var(--cream)}
 .ask-logo svg{display:block;width:100%;height:auto;fill:currentColor}
@@ -269,7 +266,6 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 /* reduced motion: the beats simply stack, everything shown at rest */
 .film.static{height:auto;overflow:visible}
 .film.static .layer{position:relative;height:100vh}
-.film.static .wedge{display:none}
 .film.static #type,.film.static #type2{color:var(--ink)}
 .film.static #bgA,.film.static .bmark{display:none}
 
@@ -282,6 +278,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
   .vs{margin:2px 0 32px}
   /* the brand reveal: the mark fills the width, its tagline set beneath it at a size a phone can read */
   .brand-lock{--lw:86vw}
+  .ask-t{font-size:29px}
+  .ask-t.join-t{font-size:44px}
   .brand-lock .tagline{position:static;margin-top:18px;text-align:center;white-space:normal;font-size:17px}
   .cards{flex-wrap:wrap;gap:12px}
   .card{width:42vw;height:27vh;margin:0}
@@ -289,6 +287,11 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
   .t18{font-size:clamp(36px,10.5vw,52px)}
   .emp-group{padding-top:56px;gap:1.75rem}
   .card p{font-size:15px}
+}
+/* on a portrait screen only a narrow slice of the sky loop shows, and its middle is clear blue: hold it to the
+   left, where its biggest cloud is, so the closing sky still reads as clouds on a phone */
+@media (max-aspect-ratio: 3/4){
+  .sky video,.end-sky video{object-position:8% 50%}
 }
 /* in Step the page itself doesn't scroll: each gesture plays a section instead */
 html.stepped,html.stepped body{height:100%;overflow:hidden;overscroll-behavior:none}
@@ -324,7 +327,7 @@ html.stepped,html.stepped body{height:100%;overflow:hidden;overscroll-behavior:n
 <div class="film" id="film">
 
   <section class="layer l-sky" id="sky" aria-labelledby="opening-t">
-    <div class="sky sky-day"><video data-src="../media/day.mp4" muted loop playsinline preload="auto"></video></div>
+    <div class="sky sky-day"><video data-src="../media/day.mp4" poster="../media/day.jpg" muted loop playsinline preload="auto"></video></div>
     <div class="reveal">
       <div class="reveal-inner">
         <h1><svg class="logo" id="logo" viewBox="0 -4 1634 564" role="img" aria-label="Wingspan"><defs><mask id="mfan" maskUnits="userSpaceOnUse" x="-1600" y="-1600" width="4800" height="3800"><rect x="-1600" y="-1600" width="4800" height="3800" fill="#fff"/><path id="fanCover" fill="#000"/><polygon points="163,298 236,298 244,432 202,494 163,494" fill="#fff"/></mask></defs>
@@ -365,21 +368,17 @@ html.stepped,html.stepped body{height:100%;overflow:hidden;overscroll-behavior:n
         <span class="sticker" aria-hidden="true"><span class="ico stay"></span></span>
         <h3>13%</h3>
         <span class="kicker">Of their peers</span>
-        <p>That’s 3× the rate.</p>
+        <p>That’s <span class="x3">3×</span> the rate.</p>
       </article>
     </div>
   </section>
 
-  <div class="layer wedge" id="wedgeBlue" aria-hidden="true"><div class="bg s3"></div><img class="cj ctl f1" src="../assets/clouds/cloud-2.png" alt=""><img class="cj cbr f2" src="../assets/clouds/cloud-4.png" alt=""></div>
-
   <section class="layer l-type" id="type" aria-label="Care leavers">
     <div class="tgroup" id="groupA">
-      <h2 class="tl" data-type>Care leavers don’t lack <span class="sel" id="talentHl">talent.</span></h2>
+      <h2 class="tl" data-type>Care leavers don’t lack talent.</h2>
       <p class="tl" id="skillsLine">They’re <span class="nw"><span class="sel lil q">resilient</span>,</span> <span class="nw"><span class="sel lil q">driven</span></span> and <span class="sel lil q">loyal.</span></p>
     </div>
   </section>
-
-  <div class="layer wedge" id="wedgeGrey" aria-hidden="true"><div class="bg s3"></div><img class="cj ctl f1" src="../assets/clouds/cloud-2.png" alt=""><img class="cj cbr f2" src="../assets/clouds/cloud-4.png" alt=""></div>
 
   <section class="layer l-type" id="type2" aria-label="Access">
     <div class="tgroup" id="groupB">
@@ -411,7 +410,7 @@ html.stepped,html.stepped body{height:100%;overflow:hidden;overscroll-behavior:n
   <section class="layer l-emp" id="employers" aria-label="What you get">
     <div class="bg s2"><video src="../media/section2.mp4" poster="../media/section2.jpg" muted loop playsinline preload="auto"></video><span class="grain"></span></div>
     <svg class="ribbon" id="ribbon" aria-hidden="true"></svg>
-    <div class="end-sky" id="endSky" aria-hidden="true"><video data-src="../media/day.mp4" muted loop playsinline preload="auto"></video></div>
+    <div class="end-sky" id="endSky" aria-hidden="true"><video data-src="../media/day.mp4" poster="../media/day.jpg" muted loop playsinline preload="auto"></video></div>
     <div class="emp-group">
     <h2 class="emp-t" id="empT">What you get:</h2>
     <div class="cards">
@@ -422,12 +421,12 @@ html.stepped,html.stepped body{height:100%;overflow:hidden;overscroll-behavior:n
     </div>
     </div>
     <div class="ask" id="ask">
-      <h2 class="ask-t" id="askT">We’re looking for <span class="hl">20 founding employers</span> to launch Wingspan.</h2>
+      <h2 class="ask-t" id="askT">We’re looking for <span class="sel lil" id="askHl">20&nbsp;founding&nbsp;employers</span> to launch Wingspan.</h2>
       <p class="ask-p" id="askP">Be one of the first to redefine what’s possible from care to career.</p>
     </div>
     <div class="ask" id="join">
       <h2 class="ask-t join-t" id="joinT">Will you join us?</h2>
-      <p class="ask-p" id="joinP">Our London pilot begins February 2027.</p>
+      <p class="ask-p" id="joinP">Our <span class="pop">London pilot</span> begins February 2027.<br>We’d love to tell you about it.</p>
       <div class="ask-logo" id="joinLogo" role="img" aria-label="Wingspan"></div>
     </div>
   </section>
@@ -472,17 +471,15 @@ const rad = d => d * Math.PI / 180;
    re-seeking one to match the other is what made the sky jump. ---------- */
 const videos = [...document.querySelectorAll('video[data-src]')];
 videos.forEach(v => { v.src = v.dataset.src; });
-// wait until both can play through: starting on 'canplay' stalled on the first second, and the timeline's
-// first update used to start them early, so the later seek back to 0 made them jump on load
-const ready = v => new Promise(r => v.readyState >= 4 ? r() : v.addEventListener('canplaythrough', r, { once: true }));
-let skyReady = false, skyWanted = true, skyPlaying = false;
+// each starts when its frame needs it and is never seeked, which is what made the sky jump on load. (They used to
+// wait for 'can play through', which phones never send for a video that isn't playing yet, so on a phone the
+// closing sky never appeared.) The poster shows while a loop loads.
+let skyPlaying = false;
 function playSky(on) {
-  skyWanted = on;
-  if (!skyReady || on === skyPlaying || reduce) return;
+  if (on === skyPlaying || reduce) return;
   skyPlaying = on;
   videos.forEach(v => on ? v.play().catch(() => {}) : v.pause());
 }
-Promise.all(videos.map(ready)).then(() => { skyReady = true; playSky(skyWanted); });
 
 /* ---------- text splitting ---------- */
 function textNodes(root) {
@@ -621,22 +618,6 @@ function drawStats() {
   });
 }
 
-/* ---------- the triangles: a wedge from the centre of the screen, opening until it covers it ---------- */
-const WG = { b: 0, g: 0 };
-function wedge(el, t, axis) {
-  if (t <= 0) { el.style.clipPath = 'polygon(50% 50%, 50% 50%, 50% 50%)'; return; }
-  // fully open: drop the clip, so the two edges meeting behind the centre leave no hairline seam
-  if (t >= 0.999) { el.style.clipPath = 'none'; return; }
-  const W = innerWidth, H = innerHeight, R = Math.hypot(W, H), half = 180 * (1 - Math.pow(1 - t, 2));
-  const pts = [`${W / 2}px ${H / 2}px`];
-  for (let i = 0; i <= 24; i++) {
-    const a = rad(axis - half + 2 * half * i / 24);
-    pts.push(`${(W / 2 + Math.cos(a) * R).toFixed(0)}px ${(H / 2 + Math.sin(a) * R).toFixed(0)}px`);
-  }
-  el.style.clipPath = `polygon(${pts.join(',')})`;
-}
-// blue opens towards the left, grey back towards the right
-function drawWedges() { wedge($('#wedgeBlue'), WG.b, 180); wedge($('#wedgeGrey'), WG.g, 0); }
 
 /* ---------- the wordmark, copied from the logo: fanning on in the brand reveal, whole beside the join ---------- */
 function cloneLogo() {
@@ -768,7 +749,7 @@ if (reduce) {
   gsap.set(cards, { y: () => innerHeight * 1.05, rotation: i => [-14, 10, -8, 16][i] });
 
   document.documentElement.classList.add('ready');
-  const buildAll = () => { wrapLines(); buildStats(); drawWedges(); drawUntil(); };
+  const buildAll = () => { wrapLines(); buildStats(); drawUntil(); };
   ScrollTrigger.addEventListener('refreshInit', buildAll);
   buildAll();
   // sizes depend on the font, so measure again once it has loaded
@@ -781,7 +762,7 @@ if (reduce) {
     .to('.reveal .tagline .ln > span', { yPercent: 0, duration: 0.9, stagger: 0.12, ease: 'smooth-ease' }, 0.9);
 
   const lens = typeLines.map(l => l.chars.length);
-  const typeFor = i => lens[i] * 0.013;           // seconds per character, the same on every line
+  const typeFor = i => lens[i] * 0.017;           // seconds per character, the same on every line
   // exits all accelerate away the same way; the blur is light so it stays smooth on phones
   const clear = { opacity: 0, y: -60, filter: 'blur(6px)', duration: 0.45, ease: 'power2.in' };
   // the brandmark sits in the corner from the opening line on, in ink over the paper of Until now; it steps
@@ -805,7 +786,7 @@ if (reduce) {
     paused: true,
     defaults: { ease: 'none' },
     onUpdate() {
-      renderType(); drawFan(); drawStats(); drawWedges(); drawUntil(); markState(tl.time()); playS1(tl.time() < tl.labels.blue1 + 0.82);
+      renderType(); drawFan(); drawStats(); drawUntil(); markState(tl.time()); playS1(tl.time() < tl.labels.until + 1);
       playS2(tl.time() > tl.labels.cards && tl.time() < tl.labels.join + 1.1);
       playSky(tl.time() < (STORY ? -1 : 1.4) || tl.time() > tl.labels.join);
     }
@@ -836,29 +817,26 @@ if (reduce) {
     .fromTo('#cardB .sticker', { scale: 0, rotation: -140 }, { scale: 1, rotation: 8, duration: 0.5, ease: 'elastic-soft', immediateRender: false }, 'stats+=1.35')
     .addLabel('rStats', 'stats+=1.85')
 
-  // 4 · Section 3 opens out of the centre; the first line types while it is still opening, talent is selected,
-  //     then the second line rises in and each quality is selected in lilac, one after another
+  // 4 · Section 1 stays on (the clouds are saved for Wingspan): the stats lift away, the first line types, then the
+  //     second rises in and each quality is selected in lilac, one after another
     .addLabel('blue1', 'rStats+=' + HOLD)
-    .to(WG, { b: 1, duration: 0.8, ease: 'power2.inOut' }, 'blue1')
-    .set(['#stats', '#bgA'], { autoAlpha: 0 }, 'blue1+=0.82')
-    .addLabel('type', 'blue1+=0.3')
+    // (fading by autoAlpha, so the same tween also hides the layer and puts it back when scrolling up)
+    .to('#stats', { autoAlpha: 0, y: -60, filter: 'blur(6px)', duration: 0.45, ease: 'power2.in' }, 'blue1')
+    .addLabel('type', 'blue1+=0.45')
     .to(T, { 0: lens[0], duration: typeFor(0) }, 'type')
-    .to('#talentHl', { '--h': 1, duration: 0.12 }, '>-0.05')
-    .to('#talentHl', { '--s': 1, duration: 0.4, ease: 'smooth-ease' }, '<')
-    .to(wSkills, { yPercent: 0, duration: 0.5, stagger: 0.02, ease: 'smooth-ease' }, '>+0.05')
-    .to('#skillsLine .q', { '--h': 1, duration: 0.1, stagger: 0.18 }, '>-0.1')
-    .to('#skillsLine .q', { '--s': 1, duration: 0.3, stagger: 0.18, ease: 'smooth-ease' }, '<')
+    .to(wSkills, { yPercent: 0, duration: 0.65, stagger: 0.04, ease: 'smooth-ease' }, '>+0.1')
+    .to('#skillsLine .q', { '--h': 1, duration: 0.1, stagger: 0.22 }, '>-0.1')
+    .to('#skillsLine .q', { '--s': 1, duration: 0.35, stagger: 0.22, ease: 'smooth-ease' }, '<')
     .addLabel('rTalent', '>+0.05')
 
-  // 5 · the same Section 3 sweeps back the other way, wiping the talent lines; access types and is selected in
-  //     green, then its second line rises in
+  // 5 · the talent lines lift away; access types and is selected in green, then its second line rises in
     .addLabel('grey', 'rTalent+=' + HOLD)
-    .to(WG, { g: 1, duration: 0.8, ease: 'power2.inOut' }, 'grey')
-    .set(['#wedgeBlue', '#type'], { autoAlpha: 0 }, 'grey+=0.82')
-    .to(T, { 1: lens[1], duration: typeFor(1) }, 'grey+=0.35')
+    .to('#groupA', clear, 'grey')
+    .set('#type', { autoAlpha: 0 }, 'grey+=0.5')
+    .to(T, { 1: lens[1], duration: typeFor(1) }, 'grey+=0.45')
     .to('#accessHl', { '--h': 1, duration: 0.12 }, '>-0.05')
     .to('#accessHl', { '--s': 1, duration: 0.4, ease: 'smooth-ease' }, '<')
-    .to(wRoutes, { yPercent: 0, duration: 0.5, stagger: 0.02, ease: 'smooth-ease' }, '>+0.05')
+    .to(wRoutes, { yPercent: 0, duration: 0.65, stagger: 0.04, ease: 'smooth-ease' }, '>+0.1')
     .addLabel('rAccess', '>+0.05')
 
   // 6 · the stage clears: the access lines fade out completely, the paper comes up empty and holds a beat,
@@ -868,9 +846,9 @@ if (reduce) {
     .to('#until', { autoAlpha: 1, duration: 0.35 }, 'until+=0.45')
     .to('.until-t', { yPercent: 0, opacity: 1, duration: 0.45, ease: 'smooth-ease' }, 'until+=1.1')
     .addLabel('rUntil', 'until+=1.6')
-  // 7 · its star turns blue, and the brand frame grows out of it to fill the screen — the words turning white as it
-  //     passes — while its clouds fly out from the middle to the corners, where they stay and float
-    .addLabel('grow', 'rUntil+=' + HOLD)
+  // 7 · with no further scroll, after a held beat, its star turns blue and the brand frame grows out of it to fill
+  //     the screen — the words turning white as it passes — while its clouds fly out to the corners and float
+    .addLabel('grow', 'rUntil+=0.9')
     .to('#untilStar', { color: '#2B4BE0', scale: 1.25, rotation: 45, duration: 0.3, ease: 'smooth-ease' }, 'grow')
     .set('#brand', { autoAlpha: 1 }, 'grow+=0.25')
     .to(IR, { r: 1, duration: 1, ease: 'power2.in' }, 'grow+=0.25')
@@ -887,20 +865,20 @@ if (reduce) {
   // 9 · what Wingspan does, rising in line by line on the same living background
     .addLabel('connects', 'rBrand+=' + HOLD)
     .to('#brandLock', { y: -90, opacity: 0, duration: 0.4, ease: 'power2.in' }, 'connects')
-    .to(wCon1, { yPercent: 0, rotation: 0, duration: 0.55, stagger: (i, el) => conLine(el) * 0.12 + i * 0.008, ease: 'smooth-ease' }, 'connects+=0.35')
-    .to(wCon2, { yPercent: 0, rotation: 0, duration: 0.5, stagger: 0.03, ease: 'smooth-ease' }, 'connects+=0.9')
-    .to('#conHl', { '--h': 1, duration: 0.1 }, 'connects+=1.2')
-    .to('#conHl', { '--s': 1, duration: 0.45, ease: 'smooth-ease' }, 'connects+=1.2')
-    .addLabel('rConnects', 'connects+=1.6')
+    .to(wCon1, { yPercent: 0, rotation: 0, duration: 0.7, stagger: (i, el) => conLine(el) * 0.16 + i * 0.012, ease: 'smooth-ease' }, 'connects+=0.35')
+    .to(wCon2, { yPercent: 0, rotation: 0, duration: 0.65, stagger: 0.045, ease: 'smooth-ease' }, 'connects+=1.1')
+    .to('#conHl', { '--h': 1, duration: 0.1 }, 'connects+=1.6')
+    .to('#conHl', { '--s': 1, duration: 0.5, ease: 'smooth-ease' }, 'connects+=1.6')
+    .addLabel('rConnects', 'connects+=2.15')
 
   // 10 · Section 2 comes up; the four cards rise and fan in, the ribbon drawing in behind them
     .addLabel('cards', 'rConnects+=' + HOLD)
     .to('#conWrap', { y: -90, opacity: 0, duration: 0.4, ease: 'power2.in' }, 'cards')
     .fromTo('#employers', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, immediateRender: false }, 'cards+=0.15')
     .to('#empT', { y: 0, opacity: 1, duration: 0.75, ease: 'smooth-ease' }, 'cards+=0.22')
-    .to(cards, { y: 0, yPercent: i => [4, 0, 6, 2][i], rotation: (i, el) => parseFloat(getComputedStyle(el).getPropertyValue('--r')), duration: 0.75, stagger: 0.16, ease: 'smooth-ease' }, 'cards+=0.3')
-    .to(S, { p2: 1, duration: 1.2, ease: 'sine.inOut' }, 'cards+=0.15')
-    .addLabel('rCards', 'cards+=1.6')
+    .to(cards, { y: 0, yPercent: i => [4, 0, 6, 2][i], rotation: (i, el) => parseFloat(getComputedStyle(el).getPropertyValue('--r')), duration: 1, stagger: 0.28, ease: 'smooth-ease' }, 'cards+=0.3')
+    .to(S, { p2: 1, duration: 1.6, ease: 'sine.inOut' }, 'cards+=0.15')
+    .addLabel('rCards', 'cards+=2.2')
 
   // 11 · the cards lift away and the tee-up lands on Section 2: 20 founding employers
     .addLabel('ask', 'rCards+=' + HOLD)
@@ -908,7 +886,8 @@ if (reduce) {
     .to('#empT', { yPercent: -80, opacity: 0, duration: 0.4, ease: 'power2.in' }, 'ask')
     .to('#ribbon', { yPercent: 110, duration: 0.65, ease: 'power2.in' }, 'ask+=0.05')
     .to('#askT', { autoAlpha: 1, y: 0, duration: 0.55, ease: 'smooth-ease' }, 'ask+=0.6')
-    .to('#askT .hl', { backgroundSize: '100% 46%', duration: 0.4, ease: 'smooth-ease' }, 'ask+=1')
+    .to('#askHl', { '--h': 1, duration: 0.12 }, 'ask+=1')
+    .to('#askHl', { '--s': 1, duration: 0.45, ease: 'smooth-ease' }, 'ask+=1')
     .to('#askP', { autoAlpha: 1, y: 0, duration: 0.55, ease: 'smooth-ease' }, 'ask+=1.1')
     .addLabel('rAsk', 'ask+=1.7')
 
@@ -932,7 +911,8 @@ if (reduce) {
   const moveFor = sec => gsap.utils.clamp(0.8, 1.3, sec * 0.6);
   const PHONE = matchMedia('(pointer: coarse)').matches || innerWidth < 720 ? 1.35 : 1;
   // starting on the story, the brand opening is skipped: the first resting point is the opening line itself
-  const stops = ['r18', 'rStats', 'rTalent', 'rAccess', 'rUntil', 'rBrand', 'rConnects', 'rCards', 'rAsk', 'rJoin'].slice(STORY ? 1 : 0);
+  // (Until now isn't a resting point: one scroll from access plays it, holds it, and opens on into Wingspan)
+  const stops = ['r18', 'rStats', 'rTalent', 'rAccess', 'rBrand', 'rConnects', 'rCards', 'rAsk', 'rJoin'].slice(STORY ? 1 : 0);
   const startAt = STORY ? tl.labels.r18 : 0;
   if (STORY) {
     // there is no sky: the opening line rises in on its own over Section 1
