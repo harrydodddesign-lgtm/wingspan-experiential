@@ -989,15 +989,22 @@ if (reduce) {
     // A turn counts once the movement the other way adds up to a real gesture: a trackpad's coast can end with one
     // tiny flick back, which mustn't send the page back a step, but a gentle swipe back is made of small movements
     // too, and judging each one alone ignored it, so the page sometimes wouldn't scroll back up.
-    let turn = 0;
+    // And a second swipe the same way can start while the first is still coasting, with no pause between them:
+    // a coast only ever slows, so once it has been slowing, movement that climbs well above the slowest it got
+    // to is a new swipe (measured from that low point, since a swipe ramps up gradually rather than jumping).
+    let turn = 0, lastAbs = 0, slowing = 0, low = Infinity;
     addEventListener('wheel', e => {
-      const now = performance.now(), sign = Math.sign(e.deltaY);
-      if (now - lastWheel > 140) { fresh = true; turn = 0; if (sign) lastSign = sign; }
+      const now = performance.now(), sign = Math.sign(e.deltaY), a = Math.abs(e.deltaY);
+      if (now - lastWheel > 140) { fresh = true; turn = 0; slowing = 0; low = Infinity; if (sign) lastSign = sign; }
       else if (sign && sign !== lastSign) {
-        turn += Math.abs(e.deltaY);
-        if (turn > 8) { fresh = true; lastSign = sign; turn = 0; }
-      } else if (sign) turn = 0;
-      lastWheel = now;
+        turn += a;
+        if (turn > 8) { fresh = true; lastSign = sign; turn = 0; slowing = 0; low = Infinity; }
+      } else if (sign) {
+        turn = 0;
+        if (a < lastAbs) { slowing++; low = Math.min(low, a); }
+        else if (slowing >= 3 && a > low * 2 + 6) { fresh = true; slowing = 0; low = Infinity; }
+      }
+      lastWheel = now; lastAbs = a;
     }, { capture: true, passive: true });
     addEventListener('touchstart', () => { fresh = true; }, { capture: true, passive: true });
     function step(d) {
