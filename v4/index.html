@@ -174,6 +174,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 /* the words that carry each line, talent and access, are selected in Azure like a highlighted passage */
 .sel{--az:#4BB4D8;--sc:rgba(75,180,216,.42);--s:0;--h:0;position:relative;display:inline-block;padding:0 .05em;margin:0 -.05em;
   background:linear-gradient(var(--sc),var(--sc)) no-repeat 0 0 / calc(var(--s) * 100%) 100%}
+/* a selected word and the punctuation after it never part at a line break */
+.nw{white-space:nowrap}
 /* the lollipop selection in the brand lilac, for the talent qualities; access is selected in green, for go */
 .sel.lil{--az:var(--lilac);--sc:rgba(205,145,233,.62)}
 .sel.go{--az:#9FD989;--sc:rgba(159,217,137,.5)}
@@ -273,7 +275,14 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 
 @media (max-width:720px){
   .sworld{flex-direction:column;gap:10px}
-  .stat-card{width:86vw;padding:56px 24px 28px}
+  .stat-card{width:86vw;padding:48px 24px 24px}
+  .stat-card h3{font-size:64px}
+  .sticker{width:72px}
+  /* stacked, the second card's sticker rises over the gap, so 'compared to' keeps clear of it */
+  .vs{margin:2px 0 32px}
+  /* the brand reveal: the mark fills the width, its tagline set beneath it at a size a phone can read */
+  .brand-lock{--lw:86vw}
+  .brand-lock .tagline{position:static;margin-top:18px;text-align:center;white-space:normal;font-size:17px}
   .cards{flex-wrap:wrap;gap:12px}
   .card{width:42vw;height:27vh;margin:0}
   .t18 br{display:none}
@@ -366,7 +375,7 @@ html.stepped,html.stepped body{height:100%;overflow:hidden;overscroll-behavior:n
   <section class="layer l-type" id="type" aria-label="Care leavers">
     <div class="tgroup" id="groupA">
       <h2 class="tl" data-type>Care leavers don’t lack <span class="sel" id="talentHl">talent.</span></h2>
-      <p class="tl" id="skillsLine">They’re <span class="sel lil q">resilient</span>, <span class="sel lil q">driven</span> and <span class="sel lil q">loyal.</span></p>
+      <p class="tl" id="skillsLine">They’re <span class="nw"><span class="sel lil q">resilient</span>,</span> <span class="nw"><span class="sel lil q">driven</span></span> and <span class="sel lil q">loyal.</span></p>
     </div>
   </section>
 
