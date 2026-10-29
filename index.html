@@ -239,6 +239,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 #askHl{white-space:nowrap}
 /* on the join, 'London pilot' takes the lollipop selection in green, the colour for the positive */
 #joinHl{white-space:nowrap}
+/* and its closing line in the brand's Electric Lavender, lifted off the pale sky by a brand-blue shadow */
+.love{color:var(--lilac);text-shadow:0 1px 2px rgba(29,59,206,.6),0 2px 16px rgba(20,42,154,.55)}
 .join-t{font-size:clamp(44px,7.4vw,140px)}
 .ask-logo{width:clamp(180px,22vw,360px);margin-top:clamp(10px,2vh,28px);color:var(--cream)}
 .ask-logo svg{display:block;width:100%;height:auto;fill:currentColor}
@@ -402,7 +404,7 @@ html.stepped,html.stepped body{height:100%;overflow:hidden;overscroll-behavior:n
     </div>
     <div class="ask" id="join">
       <h2 class="ask-t join-t" id="joinT">Will you join us?</h2>
-      <p class="ask-p" id="joinP">Our <span class="sel go" id="joinHl">London&nbsp;pilot</span> begins February 2027.<br>We’d love to tell you about it.</p>
+      <p class="ask-p" id="joinP">Our <span class="sel go" id="joinHl">London&nbsp;pilot</span> begins February 2027.<br><span class="love">We’d love to tell you about it.</span></p>
       <div class="ask-logo" id="joinLogo" role="img" aria-label="Wingspan"></div>
     </div>
   </section>
