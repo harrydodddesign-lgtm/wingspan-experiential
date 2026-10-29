@@ -238,8 +238,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 /* '20 founding employers' carries the ask: lilac bar, as the story's key words */
 /* '20 founding employers' takes the same lollipop selection as the story, and never breaks across lines */
 #askHl{white-space:nowrap}
-/* on the join, 'London pilot' in the brand lime */
-.pop{color:#C8F08F}
+/* on the join, 'London pilot' takes the same lollipop selection */
+#joinHl{white-space:nowrap}
 .join-t{font-size:clamp(44px,7.4vw,140px)}
 .ask-logo{width:clamp(180px,22vw,360px);margin-top:clamp(10px,2vh,28px);color:var(--cream)}
 .ask-logo svg{display:block;width:100%;height:auto;fill:currentColor}
@@ -426,7 +426,7 @@ html.stepped,html.stepped body{height:100%;overflow:hidden;overscroll-behavior:n
     </div>
     <div class="ask" id="join">
       <h2 class="ask-t join-t" id="joinT">Will you join us?</h2>
-      <p class="ask-p" id="joinP">Our <span class="pop">London pilot</span> begins February 2027.<br>We’d love to tell you about it.</p>
+      <p class="ask-p" id="joinP">Our <span class="sel lil" id="joinHl">London&nbsp;pilot</span> begins February 2027.<br>We’d love to tell you about it.</p>
       <div class="ask-logo" id="joinLogo" role="img" aria-label="Wingspan"></div>
     </div>
   </section>
@@ -898,6 +898,8 @@ if (reduce) {
     .fromTo('#endSky', { '--e': -40, yPercent: 6 }, { '--e': 100, yPercent: 0, duration: 1, ease: 'sine.inOut', immediateRender: false }, 'join+=0.05')
     .to('#joinT', { autoAlpha: 1, y: 0, duration: 0.55, ease: 'smooth-ease' }, 'join+=0.4')
     .to('#joinP', { autoAlpha: 1, y: 0, duration: 0.55, ease: 'smooth-ease' }, 'join+=0.75')
+    .to('#joinHl', { '--h': 1, duration: 0.12 }, 'join+=1.15')
+    .to('#joinHl', { '--s': 1, duration: 0.45, ease: 'smooth-ease' }, 'join+=1.15')
     .to('#joinLogo', { autoAlpha: 1, y: 0, duration: 0.6, ease: 'smooth-ease' }, 'join+=1.05')
     .addLabel('rJoin', 'join+=1.7')
     .to({}, { duration: 0.4 });
