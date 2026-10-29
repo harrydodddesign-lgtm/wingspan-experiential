@@ -986,12 +986,18 @@ if (reduce) {
     let at = 0, playing = false, stepDir = 0, fresh = true, lastWheel = 0, lastSign = 0;
     // a new gesture: a pause in the scroll events, or a change of direction (scrolling back up while a trackpad's
     // momentum from the last swipe is still running sends no pause, so the turn itself has to count)
-    // (a turn only counts once it's a real movement: a trackpad's momentum can end with a tiny flick back, which
-    // used to read as a new gesture the other way and send the page back a step)
+    // A turn counts once the movement the other way adds up to a real gesture: a trackpad's coast can end with one
+    // tiny flick back, which mustn't send the page back a step, but a gentle swipe back is made of small movements
+    // too, and judging each one alone ignored it, so the page sometimes wouldn't scroll back up.
+    let turn = 0;
     addEventListener('wheel', e => {
-      const now = performance.now(), sign = Math.abs(e.deltaY) > 4 ? Math.sign(e.deltaY) : 0;
-      if (now - lastWheel > 140 || (sign && sign !== lastSign)) fresh = true;
-      lastWheel = now; if (sign) lastSign = sign;
+      const now = performance.now(), sign = Math.sign(e.deltaY);
+      if (now - lastWheel > 140) { fresh = true; turn = 0; if (sign) lastSign = sign; }
+      else if (sign && sign !== lastSign) {
+        turn += Math.abs(e.deltaY);
+        if (turn > 8) { fresh = true; lastSign = sign; turn = 0; }
+      } else if (sign) turn = 0;
+      lastWheel = now;
     }, { capture: true, passive: true });
     addEventListener('touchstart', () => { fresh = true; }, { capture: true, passive: true });
     function step(d) {
