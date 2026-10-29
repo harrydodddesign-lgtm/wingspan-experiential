@@ -4,15 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Wingspan Experiential v4</title>
-<!-- opening on the story: mark the page before anything paints, so the cloud hero never flashes up first -->
-<script>if (new URLSearchParams(location.search).get('start') === 'story') document.documentElement.classList.add('story');</script>
+<!-- the page opens on the story; marked before anything paints, so the cloud hero never flashes up first -->
+<script>document.documentElement.classList.add('story');</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-/* Experiential landing, played like an advert: one pinned frame and one scroll-scrubbed timeline. Every beat
-   gets the same amount of scroll however long its animation is (about one ordinary scroll), then a still stretch
-   to read it — so short beats can't be flown past and long ones aren't a slog.
-   Clouds, the mark and its subhead playing in on load → the opening line → both stat cards, 'compared to'
+/* Experiential landing, played like an advert: one fixed frame and one timeline. The page doesn't scroll — each
+   scroll, swipe or key plays the next beat at its own pace, so none can be flown past and none is a slog.
+   The opening line → both stat cards, 'compared to'
    between them → the talent and access lines, still on Section 1 → Until now, whose star then opens by itself
    into the brand reveal → what Wingspan does → cards on Section 2 → the founding-employer ask → the join, under
    the hero's clouds. Single light look by choice: the brand palette is fixed. */
@@ -293,37 +292,14 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 @media (max-aspect-ratio: 3/4){
   .sky video,.end-sky video{object-position:8% 50%}
 }
-/* in Step the page itself doesn't scroll: each gesture plays a section instead */
+/* the page itself doesn't scroll: each gesture plays a section instead */
 html.stepped,html.stepped body{height:100%;overflow:hidden;overscroll-behavior:none}
-/* which version: v2 and v4 link to each other, keeping the scroll mode */
-.vers{position:fixed;right:14px;top:14px;z-index:100;display:flex;padding:4px;gap:2px;border-radius:999px;
-  background:rgba(239,238,234,.82);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 4px 18px rgba(20,30,90,.18)}
-.vers a{padding:8px 14px;border-radius:999px;color:var(--ink);font:700 14px/1 var(--fd);text-decoration:none}
-.vers a[aria-current="page"]{background:var(--ink);color:var(--cream)}
-@media (max-width:720px){.vers{top:auto;bottom:14px;right:50%;transform:translateX(50%)}}
-/* the Scrub / Snap / Step switch, for comparing the two ways of scrolling; it sits above everything */
-.modes{position:fixed;left:50%;top:14px;z-index:100;transform:translateX(-50%);display:flex;padding:4px;gap:2px;border-radius:999px;
-  background:rgba(239,238,234,.82);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 4px 18px rgba(20,30,90,.18)}
-.modes button{appearance:none;border:0;margin:0;padding:8px 16px;border-radius:999px;background:transparent;color:var(--ink);
-  font:700 14px/1 var(--fd);letter-spacing:.01em;cursor:pointer;transition:background .2s,color .2s}
-.modes button[aria-pressed="true"]{background:var(--blue);color:var(--cream)}
-.modes button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 @media (prefers-reduced-motion: reduce){
-  .modes{display:none}
   .caret,.bg::before,.bg::after,.cj{animation:none}
 }
 </style>
 </head>
 <body>
-<div class="modes" role="group" aria-label="Scroll style">
-  <button type="button" data-mode="scrub" aria-pressed="false">Scrub</button>
-  <button type="button" data-mode="snap" aria-pressed="true">Snap</button>
-  <button type="button" data-mode="step" aria-pressed="false">Step</button>
-  <button type="button" data-mode="step" data-start="story" aria-pressed="false" title="Step, opening on the story">Step 2</button>
-</div>
-
-<nav class="vers" aria-label="Version"><a href="../v2/">v2</a><a href="../v4/" aria-current="page">v4</a></nav>
-
 <div class="film" id="film">
 
   <section class="layer l-sky" id="sky" aria-labelledby="opening-t">
@@ -436,35 +412,22 @@ html.stepped,html.stepped body{height:100%;overflow:hidden;overscroll-behavior:n
 <div class="bmark" id="bmark" aria-hidden="true"><svg viewBox="0 0 1057.45 1002.03"><path d="M769.54,676.41c148.45-110.96,287.91-217.79,287.91-217.79-61.07-8.53-122.04-19.93-182.41-34.24l-105.5,252.04Z"/><path d="M617.09,737.93l-23.32-216.84h-1.89l-95.18,216.84h-127.96l-42.87-352.36h116.61l13.24,226.3h2.52l96.45-226.3h113.46l23.32,226.3h2.52l81.11-214.1c-195.94-58.1-382.26-149.11-540.77-278.14-31.09-25.41-60.9-52.44-89.52-80.6C127.01,23.5,108.9,1.87,83.96,0,54.08,14.06,27.57,79.34,29.6,112.13c-5.34,58.32,139.03,143.2,186.09,173.92-60.41-26.1-111.6-71.52-173.51-93.28-5.93-1.13-13.24-1.59-17.89,3-6.58,9.56-12,22.57-15.9,33.83-22.76,70.17,1.16,112.12,66.93,140.51,56.71,30.8,116.6,55.59,178.26,74.55-47.51-11.46-94.41-25.2-140.56-41.27-22.89-5.69-88.78-40.57-105.06-17.57-23.11,78.02,5.04,131.22,86.38,146.7,67.49,20.59,137.22,33.63,207.45,40.19-81.13-.98-161.03-14.18-241.46-22.77-9.39-.1-19.59-.37-28.36,3.52-17.85,10.4-2,66.53,8.2,80.87,18.53,36.11,60.53,39.07,96.75,41.94,68.57,6.85,137.77,6.84,206.43,1.1-63.23,9.52-126.92,16.09-190.79,19.28-26.2,2.15-54.96-.09-79.02,12.22-13.33,10.21,4.64,45.85,12.29,57.17,23.56,38.94,70.03,37.53,109.98,31.79,56.39-5.08,112.39-14.34,167.54-27.11-51.47,16.51-103.5,31.34-155.95,44.37-25.49,7.72-56.46,9.87-76.62,28.59-1.22,1.91-1.74,4.11-1.11,6.37,8.36,31.05,36.94,55.22,69.19,57.96,68.39-6.79,135.06-36.08,199.77-58.88-40.78,23.33-84.04,47.58-125.68,70.25-18.47,10.11-37.28,19.89-54,32.92-11.78,9.16-16.19,16.05-3.61,28.19,45.49,49.17,107.68,2.21,151.47-23.53,53.02-31.37,104.8-64.95,155.64-99.73,46.26-32.57,104.04-74.69,164.37-119.32h-69.74Z"/></svg></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Observer.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/CustomEase.min.js"></script>
-<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
 // everything below is measured from the screen, so it waits until the page has one: opened in a pane or frame that
 // is still at zero height, the moves were all worked out as zero (the cards never left on the last frame)
 function boot() {
-gsap.registerPlugin(ScrollTrigger, Observer, CustomEase);
-ScrollTrigger.config({ ignoreMobileResize: true });
+gsap.registerPlugin(Observer, CustomEase);
 // motion language borrowed from the More Nutrition site: one smooth default ease and a soft elastic for things that land
 CustomEase.create('smooth-ease', '0.32, 0.72, 0, 1');
 CustomEase.create('elastic-soft', 'M0,0 L0.017,0.029 L0.036,0.113 L0.111,0.604 L0.15,0.809 L0.191,0.949 L0.213,0.995 L0.236,1.026 L0.262,1.044 L0.293,1.049 L0.435,1.01 L0.512,1 L1,1');
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 window.scrollTo(0, 0);
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-// ?start=story opens straight on the story ("At 18…"), the brand arriving later; otherwise it opens on the brand
-const STORY = new URLSearchParams(location.search).get('start') === 'story';
+// the page opens straight on the story ("At 18…"); the cloud hero before it is kept only for the mark it holds
+const STORY = true;
 const $ = s => document.querySelector(s);
-// the version links carry the scroll mode and start across
-document.querySelectorAll('.vers a').forEach(a => { a.href = a.getAttribute('href') + location.search; });
-// Lenis smooths the scroll itself
-let lenis = null;
-if (!reduce && window.Lenis) {
-  lenis = new Lenis({ lerp: 0.1, wheelMultiplier: 0.9, touchMultiplier: 1.2 });
-  lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add(t => lenis.raf(t * 1000));
-  gsap.ticker.lagSmoothing(0);
-}
 const rad = d => d * Math.PI / 180;
 
 /* ---------- sky loops: same seed and camera. Started together once both can play, then left alone —
@@ -750,10 +713,11 @@ if (reduce) {
 
   document.documentElement.classList.add('ready');
   const buildAll = () => { wrapLines(); buildStats(); drawUntil(); };
-  ScrollTrigger.addEventListener('refreshInit', buildAll);
   buildAll();
-  // sizes depend on the font, so measure again once it has loaded
-  document.fonts.ready.then(() => ScrollTrigger.refresh());
+  // sizes depend on the font and the window, so measure again once the font has loaded and after any resize
+  document.fonts.ready.then(buildAll);
+  let resizing;
+  addEventListener('resize', () => { clearTimeout(resizing); resizing = setTimeout(buildAll, 150); });
 
   // the opening plays on its own as the page loads: clouds first, then the mark fans on, then its subhead
   if (!STORY) gsap.timeline({ delay: 0.6, onUpdate: drawFan })
@@ -904,174 +868,66 @@ if (reduce) {
     .addLabel('rJoin', 'join+=1.7')
     .to({}, { duration: 0.4 });
 
-  /* ---------- the scroll: each beat (one resting point to the next) gets the same stretch of scroll, then a still
-     one. MOVE is the scroll that plays a beat and REST the pause after it, both in screen heights. ---------- */
-  // the still stretch after each beat is short, so scrolling always moves something; each beat's scroll follows
-  // how long its animation runs (0.8–1.3 screens), so the same scroll plays every beat at a similar speed.
-  // On phones every distance is a third longer: a thumb flick covers far more of a short screen than a wheel does.
-  const REST = 0.22;
-  const moveFor = sec => gsap.utils.clamp(0.8, 1.3, sec * 0.6);
-  const PHONE = matchMedia('(pointer: coarse)').matches || innerWidth < 720 ? 1.35 : 1;
-  // starting on the story, the brand opening is skipped: the first resting point is the opening line itself
-  // (Until now isn't a resting point: one scroll from access plays it, holds it, and opens on into Wingspan)
-  const stops = ['r18', 'rStats', 'rTalent', 'rAccess', 'rBrand', 'rConnects', 'rCards', 'rAsk', 'rJoin'].slice(STORY ? 1 : 0);
-  const startAt = STORY ? tl.labels.r18 : 0;
-  if (STORY) {
-    // there is no sky: the opening line rises in on its own over Section 1
-    tl.time(startAt);
-    gsap.fromTo(w18, { yPercent: 108 }, { yPercent: 0, duration: 0.7, stagger: 0.05, ease: 'smooth-ease', delay: 0.4 });
+  // the resting points: the opening line, then each beat once it has played
+  // (Until now isn't one: one scroll from access plays it, holds it, and opens on into Wingspan)
+  const stops = ['r18', 'rStats', 'rTalent', 'rAccess', 'rBrand', 'rConnects', 'rCards', 'rAsk', 'rJoin'].slice(1);
+  const startAt = tl.labels.r18;
+  // there is no sky: the opening line rises in on its own over Section 1
+  tl.time(startAt);
+  gsap.fromTo(w18, { yPercent: 108 }, { yPercent: 0, duration: 0.7, stagger: 0.05, ease: 'smooth-ease', delay: 0.4 });
+  // where the story's playhead sits at each resting point: the opening line, then each beat once complete
+  const tlAt = k => k === 0 ? startAt : tl.labels[stops[Math.min(k, stops.length) - 1]];
+  /* ---------- the page doesn't scroll: each scroll, swipe or key commits to the next section, which then plays
+     at its own pace. Built on GSAP's Observer, which reads wheel, trackpad and touch gestures reliably. The rest
+     of a gesture — and a trackpad's coast after the fingers lift — is ignored: a new step needs a new gesture (a
+     pause in the scroll events, a turn, a fresh swipe, a touch, a key). Reversing is always allowed, mid-play too.
+     ---------- */
+  document.documentElement.classList.add('stepped');
+  let at = 0, playing = false, stepDir = 0, fresh = true, lastWheel = 0, lastSign = 0;
+  // A turn counts once the movement the other way adds up to a real gesture: a trackpad's coast can end with one
+  // tiny flick back, which mustn't send the page back a step, but a gentle swipe back is made of small movements
+  // too, and judging each one alone ignored it, so the page sometimes wouldn't scroll back up.
+  // And a second swipe the same way can start while the first is still coasting, with no pause between them:
+  // a coast only ever slows, so once it has been slowing, movement that climbs well above the slowest it got
+  // to is a new swipe (measured from that low point, since a swipe ramps up gradually rather than jumping).
+  let turn = 0, lastAbs = 0, slowing = 0, low = Infinity;
+  addEventListener('wheel', e => {
+    const now = performance.now(), sign = Math.sign(e.deltaY), a = Math.abs(e.deltaY);
+    if (now - lastWheel > 140) { fresh = true; turn = 0; slowing = 0; low = Infinity; if (sign) lastSign = sign; }
+    else if (sign && sign !== lastSign) {
+      turn += a;
+      if (turn > 8) { fresh = true; lastSign = sign; turn = 0; slowing = 0; low = Infinity; }
+    } else if (sign) {
+      turn = 0;
+      if (a < lastAbs) { slowing++; low = Math.min(low, a); }
+      else if (slowing >= 3 && a > low * 2 + 6) { fresh = true; slowing = 0; low = Infinity; }
+    }
+    lastWheel = now; lastAbs = a;
+  }, { capture: true, passive: true });
+  addEventListener('touchstart', () => { fresh = true; }, { capture: true, passive: true });
+  function step(d) {
+    if (!fresh) return;
+    const i = gsap.utils.clamp(0, stops.length, at + d);
+    if (i === at) return;
+    // a new gesture the same way while a section is still playing carries straight on to the next one, a little
+    // quicker, rather than being ignored (which made the page feel stuck on the longer transitions)
+    const hurry = playing && d === stepDir;
+    fresh = false; at = i; stepDir = d; playing = true;
+    const to = tlAt(i), span = Math.abs(to - tl.time());
+    // forward plays at the story's own pace; going back is a little quicker, since it's been seen
+    gsap.to(tl, { time: to, duration: Math.max(0.45, span * (d > 0 ? 1 : 0.6) * (hurry ? 0.6 : 1)), ease: 'none', overwrite: true,
+      onComplete: () => { playing = false; } });
   }
-  // when the scroll comes to rest part-way through a beat, it eases on to the nearest pause, so the page is
-  // never left half-animated: start, the middle of each beat's pause, or the end
-  const drive = gsap.timeline({ defaults: { ease: 'none' },
-    scrollTrigger: { trigger: '#film', pin: true, anticipatePin: 1, start: 'top top', end: () => '+=' + innerHeight * PHONE * drive.duration(), scrub: 0.9, invalidateOnRefresh: true } });
-  drive.addLabel('top', 0);
-  let from = startAt;
-  stops.forEach(n => {
-    drive.add(tl.tweenFromTo(from, tl.labels[n], { duration: moveFor(tl.labels[n] - from), ease: 'none', immediateRender: false }))
-         .to({}, { duration: REST })
-         .addLabel('read-' + n, '-=' + REST / 2);
-    from = tl.labels[n];
+  Observer.create({ target: window, type: 'wheel,touch', wheelSpeed: -1, tolerance: 10, preventDefault: true,
+    onUp: () => step(1), onDown: () => step(-1) });
+  addEventListener('keydown', e => {
+    const k = { ArrowDown: 1, PageDown: 1, ' ': 1, ArrowUp: -1, PageUp: -1 }[e.key];
+    if (!k) return;
+    e.preventDefault();
+    if (e.repeat) return;
+    fresh = true; step(k);
   });
-  // the settle runs through Lenis (which owns the scroll), once the scroll has been still for a moment. A scroll
-  // moves exactly one section from the pause it started on: it goes on to the next pause in the direction you
-  // scrolled — never two, however far the flick carried — and a tiny accidental nudge returns to where you were.
-  // Scrub: the story follows the scroll and stays wherever you stop. Snap: once you stop, it glides on to the
-  // next section. Step: the page doesn't scroll at all — each scroll, swipe or key commits to the next section
-  // and plays it at its own pace. The switch at the top flips between them; the link remembers which (?mode=…).
-  let mode = ['scrub', 'step'].includes(new URLSearchParams(location.search).get('mode')) ? new URLSearchParams(location.search).get('mode') : 'snap';
-  const buttons = [...document.querySelectorAll('.modes button')];
-  // Step 2 is Step opening on the story rather than the brand; the other three open on the brand
-  const isOn = b => b.dataset.mode === mode && (b.dataset.start === 'story') === STORY;
-  const showMode = () => buttons.forEach(b => b.setAttribute('aria-pressed', String(isOn(b))));
-  showMode();
-  if (lenis) {
-    let wait, dir = 1, home = 0, settling = false, heading = 0;
-    const pausesNow = st => Object.keys(drive.labels).map(l => st.labelToScroll(l)).concat(st.end).sort((a, b) => a - b);
-    // where the story's playhead sits at each pause: the top, each beat once complete, and the end
-    const tlAt = k => k === 0 ? startAt : tl.labels[stops[Math.min(k, stops.length) - 1]];
-    const settle = () => {
-      if (mode !== 'snap') return;
-      const st = drive.scrollTrigger, y = lenis.scroll;
-      if (!st || y < st.start - 2 || y > st.end + 2) return;
-      const P = pausesNow(st);
-      const at = P.findIndex(p => Math.abs(p - y) <= 2);
-      if (at > -1) { home = at; return; }                         // resting on a pause: that's the new home
-      // on past home in the direction of the scroll: the next pause; otherwise back to home
-      let to = home;
-      if (dir > 0 && y > P[home] + 30) to = home + 1;
-      if (dir < 0 && y < P[home] - 30) to = home - 1;
-      to = gsap.utils.clamp(0, P.length - 1, to);
-      settling = true; heading = to;
-      // the glide lasts as long as the animation it has left to play, so staggers, typing and delays keep their
-      // own pace instead of being squashed into a quick jump; it carries on from the scroll's motion, then eases in
-      const left = Math.abs(tlAt(to) - tl.time());
-      lenis.scrollTo(P[to], { duration: gsap.utils.clamp(0.7, 2.8, left * 1.1), easing: t => 1 - Math.pow(1 - t, 3),
-        onComplete: () => { settling = false; home = to; } });
-    };
-    lenis.on('scroll', l => {
-      if (!settling && l.direction) dir = l.direction;
-      clearTimeout(wait);
-      if (!settling) wait = setTimeout(settle, 300);
-    });
-    // a fresh scroll while a settle is still gliding takes over from it, counting from the pause it was heading to
-    const interrupt = () => { if (settling) { settling = false; home = heading; } };
-    addEventListener('wheel', interrupt, { passive: true });
-    addEventListener('touchstart', interrupt, { passive: true });
-
-    /* ---------- Step: built on GSAP's Observer, which reads wheel, trackpad and touch gestures reliably ----------
-       A gesture's first movement commits to the next section, which then plays at its natural pace. The rest of
-       that gesture — and a trackpad's momentum after the fingers lift — is ignored: a new step needs a new gesture
-       (a pause in the scroll events, a fresh touch, a key press). Reversing is always allowed, even mid-play. */
-    let at = 0, playing = false, stepDir = 0, fresh = true, lastWheel = 0, lastSign = 0;
-    // a new gesture: a pause in the scroll events, or a change of direction (scrolling back up while a trackpad's
-    // momentum from the last swipe is still running sends no pause, so the turn itself has to count)
-    // A turn counts once the movement the other way adds up to a real gesture: a trackpad's coast can end with one
-    // tiny flick back, which mustn't send the page back a step, but a gentle swipe back is made of small movements
-    // too, and judging each one alone ignored it, so the page sometimes wouldn't scroll back up.
-    // And a second swipe the same way can start while the first is still coasting, with no pause between them:
-    // a coast only ever slows, so once it has been slowing, movement that climbs well above the slowest it got
-    // to is a new swipe (measured from that low point, since a swipe ramps up gradually rather than jumping).
-    let turn = 0, lastAbs = 0, slowing = 0, low = Infinity;
-    addEventListener('wheel', e => {
-      const now = performance.now(), sign = Math.sign(e.deltaY), a = Math.abs(e.deltaY);
-      if (now - lastWheel > 140) { fresh = true; turn = 0; slowing = 0; low = Infinity; if (sign) lastSign = sign; }
-      else if (sign && sign !== lastSign) {
-        turn += a;
-        if (turn > 8) { fresh = true; lastSign = sign; turn = 0; slowing = 0; low = Infinity; }
-      } else if (sign) {
-        turn = 0;
-        if (a < lastAbs) { slowing++; low = Math.min(low, a); }
-        else if (slowing >= 3 && a > low * 2 + 6) { fresh = true; slowing = 0; low = Infinity; }
-      }
-      lastWheel = now; lastAbs = a;
-    }, { capture: true, passive: true });
-    addEventListener('touchstart', () => { fresh = true; }, { capture: true, passive: true });
-    function step(d) {
-      if (mode !== 'step' || !fresh) return;
-      const i = gsap.utils.clamp(0, stops.length, at + d);
-      if (i === at) return;
-      // a new gesture the same way while a section is still playing carries straight on to the next one, a little
-      // quicker, rather than being ignored (which made the page feel stuck on the longer transitions)
-      const hurry = playing && d === stepDir;
-      fresh = false; at = i; stepDir = d; playing = true;
-      const to = tlAt(i), span = Math.abs(to - tl.time());
-      // forward plays at the story's own pace; going back is a little quicker, since it's been seen
-      gsap.to(tl, { time: to, duration: Math.max(0.45, span * (d > 0 ? 1 : 0.6) * (hurry ? 0.6 : 1)), ease: 'none', overwrite: true,
-        onComplete: () => { playing = false; } });
-    }
-    const stepper = Observer.create({ target: window, type: 'wheel,touch', wheelSpeed: -1, tolerance: 10, preventDefault: true,
-      onUp: () => step(1), onDown: () => step(-1) });
-    stepper.disable();
-    addEventListener('keydown', e => {
-      const k = { ArrowDown: 1, PageDown: 1, ' ': 1, ArrowUp: -1, PageUp: -1 }[e.key];
-      if (mode !== 'step' || !k) return;
-      e.preventDefault();
-      if (e.repeat) return;
-      fresh = true; step(k);
-    });
-
-    function setMode(next) {
-      const st = drive.scrollTrigger;
-      if (mode === 'step' && next !== 'step') {
-        stepper.disable(); gsap.killTweensOf(tl); playing = false;
-        document.documentElement.classList.remove('stepped');
-        st.enable(); ScrollTrigger.refresh();
-        // the page is tall again: let the smooth scroll re-measure it, then jump straight to this section's place
-        const y = pausesNow(st)[at];
-        lenis.start(); lenis.resize();
-        window.scrollTo(0, y); lenis.scrollTo(y, { immediate: true, force: true });
-        home = at;
-      } else if (mode !== 'step' && next === 'step') {
-        const P = pausesNow(st), y = lenis.scroll;
-        at = P.reduce((best, p, k) => Math.abs(p - y) < Math.abs(P[best] - y) ? k : best, 0);
-        at = Math.min(at, stops.length);
-        settling = false; clearTimeout(wait);
-        lenis.stop(); st.disable(); window.scrollTo(0, 0);
-        document.documentElement.classList.add('stepped');
-        gsap.to(tl, { time: tlAt(at), duration: 0.5, ease: 'power2.out', overwrite: true });
-        fresh = true; stepper.enable();
-      }
-      mode = next; showMode();
-      const url = new URL(location.href); url.searchParams.set('mode', mode); history.replaceState(null, '', url);
-      if (mode === 'snap') {
-        // pick up from wherever things are: home is the nearest pause, then settle onto it
-        const P = pausesNow(st), y = lenis.scroll;
-        home = P.reduce((best, p, k) => Math.abs(p - y) < Math.abs(P[best] - y) ? k : best, 0);
-        settle();
-      } else if (mode === 'scrub' && settling) { lenis.stop(); lenis.start(); settling = false; }
-    }
-    // choosing a mode restarts the page in it, from the hero, so each is seen whole and as a first-time visitor would
-    buttons.forEach(b => b.addEventListener('click', () => {
-      if (isOn(b)) return;
-      const url = new URL(location.href); url.searchParams.set('mode', b.dataset.mode);
-      if (b.dataset.start) url.searchParams.set('start', b.dataset.start); else url.searchParams.delete('start');
-      location.replace(url);
-    }));
-    // a link straight to Step starts in it
-    if (mode === 'step') { mode = 'scrub'; setMode('step'); }
-  }
-  window.__wing = { tl, drive, get mode() { return mode; } };
+  window.__wing = { tl };
 }
 }
 const go = () => innerHeight ? boot() : addEventListener('resize', go, { once: true });

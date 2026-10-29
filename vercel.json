@@ -1,5 +1,5 @@
 {
   "redirects": [
-    { "source": "/", "destination": "/v4/?mode=step&start=story", "permanent": false }
+    { "source": "/", "destination": "/v4/", "permanent": false }
   ]
 }
