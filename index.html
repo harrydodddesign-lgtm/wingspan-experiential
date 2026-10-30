@@ -4,6 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Wingspan</title>
+<meta name="description" content="Bringing a wider world of work within reach.">
+<meta property="og:title" content="Wingspan">
+<meta property="og:description" content="Bringing a wider world of work within reach.">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/favicon.png">
 <!-- the page opens on the story; marked before anything paints, so the cloud hero never flashes up first -->
 <script>document.documentElement.classList.add('story');</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,7 +52,7 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 #type2{z-index:11}
 .l-until{z-index:12;background:var(--paper);display:grid;place-items:center}
 /* the way out: the brand frame itself opens out of the star at the end of 'Until now' (a circle set every frame),
-   so its gradient and clouds are already there as it grows, and nothing has to cross-fade into it */
+   so its video is already there as it grows, and nothing has to cross-fade into it */
 .l-brand{z-index:13;color:var(--cream)}
 /* the white 'Until now' sits inside the brand frame, so the words turn white wherever the circle has reached */
 .until-copy{position:absolute;inset:0;z-index:3;display:grid;place-items:center;pointer-events:none}
@@ -75,25 +80,10 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 .bg.s1{--b0:#141E7A;--b1:rgba(84,64,206,.9);--b2:rgba(205,145,233,.45);--b3:rgba(43,75,224,.8)}
 /* Section 2: the supplied loop (media/section2.mp4), behind the cards and the tee-up; the gradient is its fallback */
 .bg.s2{--b0:#2445D8;--b1:rgba(111,143,247,.85);--b2:rgba(193,150,233,.6);--b3:rgba(142,165,250,.7)}
-/* the brand reveal: a bright sky blue for the cloudjects to float in */
+/* the brand reveal: the supplied loop (media/reveal.mp4); the gradient is its fallback. Its clouds are nearly white,
+   so a brand-blue tint keeps the cream type readable: light under the logo, deeper under the sentence */
+.bg .tint{position:absolute;inset:0;z-index:2;background:#1D3BCE;opacity:.18;pointer-events:none}
 .bg.sb{--b0:#2B4BE0;--b1:rgba(127,160,255,.9);--b2:rgba(185,201,255,.7);--b3:rgba(79,114,240,.85)}
-/* cloudjects resting in the corners, each bobbing and turning on its own rhythm */
-.cj{position:absolute;pointer-events:none;height:auto;will-change:transform}
-.ctl{left:-6vmin;top:-8vmin}
-.cbr{right:-6vmin;bottom:-8vmin}
-.ctr{right:-7vmin;top:-9vmin}
-.cbl{left:-7vmin;bottom:-9vmin}
-/* in the brand frame each cloud sits in a holder, which flies it out to its corner while the cloud itself floats */
-.cjw{position:absolute;z-index:1;pointer-events:none;will-change:transform}
-.cjw .cj{position:relative;display:block}
-.cj.f1{animation:float1 9s ease-in-out infinite alternate}
-.cj.f2{animation:float2 11s ease-in-out infinite alternate}
-.cj.f3{animation:float3 13s ease-in-out infinite alternate}
-.cj.f4{animation:float1 10s ease-in-out -4s infinite alternate-reverse}
-@keyframes float1{0%{transform:translate(0,0) rotate(-4deg)}100%{transform:translate(2.5vmin,3vmin) rotate(5deg)}}
-@keyframes float2{0%{transform:translate(0,0) rotate(6deg) scale(1)}100%{transform:translate(-3vmin,-2vmin) rotate(-3deg) scale(1.05)}}
-@keyframes float3{0%{transform:translate(0,0) rotate(0)}50%{transform:translate(-2vmin,2.5vmin) rotate(8deg)}100%{transform:translate(1.5vmin,-1.5vmin) rotate(-5deg)}}
-.l-brand .cj{width:min(44vmin,460px)}
 
 /* ---------- the brandmark: faded into the bottom-right corner of every frame after the hero ---------- */
 .bmark{position:fixed;right:clamp(16px,2.4vw,36px);bottom:clamp(16px,2.4vw,36px);z-index:50;width:clamp(40px,4.2vw,68px);aspect-ratio:1057.45 / 1002.03;
@@ -101,6 +91,24 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 .bmark svg{display:block;width:100%;height:100%;fill:currentColor}
 .bmark.on{opacity:.3}
 .bmark.ink{color:var(--ink)}
+
+/* ---------- how to move on: a small arrow on the opening screen, gone for good after the first move ---------- */
+.hint{position:fixed;left:50%;bottom:clamp(18px,3.4vh,36px);z-index:50;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:4px;
+  color:var(--cream);font-size:clamp(13px,1.1vw,16px);font-weight:700;letter-spacing:.01em;opacity:0;pointer-events:none;transition:opacity .5s ease}
+.hint.on{opacity:.9}
+.hint svg{display:block;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;animation:hintBob 1.6s ease-in-out infinite}
+.hint .touch{display:none}
+@media (pointer:coarse){.hint .mouse{display:none}.hint .touch{display:inline}}
+@keyframes hintBob{0%,100%{transform:translateY(-2px)}50%{transform:translateY(4px)}}
+/* the guided tour: plays the whole story for you, then takes you back to the top. A solid pill, to read on every frame */
+.tour{position:fixed;top:clamp(14px,2.4vw,28px);right:clamp(14px,2.4vw,28px);z-index:50;display:none;align-items:center;gap:7px;padding:9px 15px 9px 12px;border:0;border-radius:999px;
+  background:var(--cream);color:var(--blue);font:800 clamp(13px,1.1vw,16px)/1 var(--fd);cursor:pointer;box-shadow:0 6px 20px rgba(6,10,38,.22);transition:transform .2s ease}
+.tour.on{display:inline-flex}
+.tour:hover{transform:scale(1.04)}
+.tour:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.tour svg{display:block;width:13px;height:13px;fill:currentColor}
+/* going back: the screen dips through the brand blue and comes up on the section before */
+.dip{position:fixed;inset:0;z-index:40;background:var(--blue);opacity:0;visibility:hidden;pointer-events:none}
 
 /* ---------- sky: drifting clouds, then the mark and its subhead (ported from the Wingspan Splash Copy) ---------- */
 /* extends past the bottom too, so its upward drift never uncovers the dark backing as a strip */
@@ -129,8 +137,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 .sworld{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:clamp(14px,2.2vw,40px);padding:6vh 4vw 0}
 .spath{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none}
 .spath path{fill:none;stroke-linecap:butt;stroke-linejoin:round}
-/* the squiggle is cream on Section 1, and carries no words */
-.sband{stroke:var(--cream)}
+/* the squiggle runs from cream on the left to the brand's Electric Lavender on the right, and carries no words */
+.sband{stroke:url(#sbandFade)}
 .stat-card{position:relative;flex:0 1 auto;width:min(38vw,600px);box-shadow:0 24px 60px rgba(6,10,38,.35);padding:clamp(64px,7vw,120px) clamp(28px,4vw,72px) clamp(36px,4vw,72px);border-radius:18px;text-align:center;will-change:transform}
 /* the same cloudy blue as the blue section: a gradient with soft blurred blobs and a fine dot texture */
 .card-bg{position:absolute;inset:0;border-radius:inherit;overflow:hidden;z-index:-1;background:linear-gradient(155deg,#2B4BE0 0%,#1D3BCE 45%,#4F72F0 100%)}
@@ -141,6 +149,12 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 .stat-card > :not(.card-bg){position:relative}
 .stat-card .sticker{position:absolute}
 .card-a,.card-b{color:var(--paper);isolation:isolate}
+/* the stat cards wear the last two 'What you get' backgrounds, with all their type in white as on those cards */
+.card-a .card-bg{background:url(assets/cards/card-4.webp) center / cover no-repeat}
+.card-b .card-bg{background:url(assets/cards/card-3.webp) center / cover no-repeat}
+.stat-card .card-bg i,.stat-card .card-bg::after{display:none}
+.card-a,.card-b{text-shadow:0 1px 14px rgba(20,30,110,.25)}
+.stat-card.card-a .kicker,.stat-card.card-b .kicker,.stat-card .x3{color:#fff}
 .stat-card h3{margin:0;font-size:clamp(76px,10vw,190px);font-weight:900;line-height:.86;letter-spacing:-.05em}
 /* who the number is about, big enough to read at a glance and in the brand lime */
 .stat-card .kicker{display:block;margin-top:.35em;color:#C8F08F;font-size:clamp(18px,1.9vw,34px);font-weight:900;letter-spacing:.04em;line-height:1.05;text-transform:uppercase}
@@ -225,7 +239,7 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 .cards .card:nth-of-type(4){--cbg:url(assets/cards/card-4.webp)}
 /* centred by GSAP percentages (not a CSS transform), so their own moves never undo the centring */
 .con-wrap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(90vw,1300px);display:flex;flex-direction:column;align-items:center;gap:clamp(24px,4vh,48px)}
-.connects{margin:0;text-align:center;font-size:clamp(30px,4.6vw,84px);font-weight:900;line-height:1.08;letter-spacing:-.03em}
+.connects{text-shadow:0 2px 16px rgba(20,42,154,.5);margin:0;text-align:center;font-size:clamp(30px,4.6vw,84px);font-weight:900;line-height:1.08;letter-spacing:-.03em}
 
 .ask{position:absolute;left:50%;top:50%;width:min(92vw,1300px);display:flex;flex-direction:column;align-items:center;gap:clamp(16px,2vw,28px);text-align:center}
 /* the close: the hero's clouds rise back up from the bottom behind the ask, so the page ends where it began */
@@ -297,7 +311,7 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 /* the page itself doesn't scroll: each gesture plays a section instead */
 html.stepped,html.stepped body{height:100%;overflow:hidden;overscroll-behavior:none}
 @media (prefers-reduced-motion: reduce){
-  .caret,.bg::before,.bg::after,.cj{animation:none}
+  .caret,.bg::before,.bg::after{animation:none}
 }
 </style>
 </head>
@@ -361,20 +375,18 @@ html.stepped,html.stepped body{height:100%;overflow:hidden;overscroll-behavior:n
   <section class="layer l-type" id="type2" aria-label="Access">
     <div class="tgroup" id="groupB">
       <h2 class="tl" data-type>They lack <span class="sel go" id="accessHl">access.</span></h2>
-      <p class="tl" id="routesLine">Traditional hiring routes weren’t built for them.</p>
+      <p class="tl" id="routesLine">Traditional hiring routes weren’t built for them...</p>
     </div>
   </section>
 
   <section class="layer l-until" id="until" aria-label="Until now">
-    <h2 class="until-t" id="untilT" aria-label="Until now.">Until now<span class="ustar" id="untilStar"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 0C53 33 67 47 100 50C67 53 53 67 50 100C47 67 33 53 0 50C33 47 47 33 50 0Z"/></svg></span></h2>
+    <h2 class="until-t" id="untilT" aria-label="until now.">until now.<span class="ustar" id="untilStar"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 0C53 33 67 47 100 50C67 53 53 67 50 100C47 67 33 53 0 50C33 47 47 33 50 0Z"/></svg></span></h2>
   </section>
 
   <section class="layer l-brand" id="brand" aria-label="Wingspan">
-    <div class="bg sb"></div>
-    <span class="cjw ctl"><img class="cj f1" src="assets/clouds/cloud-1.png" alt=""></span><span class="cjw ctr"><img class="cj f2" src="assets/clouds/cloud-2.png" alt=""></span>
-    <span class="cjw cbl"><img class="cj f3" src="assets/clouds/cloud-4.png" alt=""></span><span class="cjw cbr"><img class="cj f4" src="assets/clouds/cloud-2.png" alt=""></span>
+    <div class="bg sb"><video src="media/reveal.mp4" poster="media/reveal.jpg" muted loop playsinline preload="auto"></video><span class="tint" id="sbTint"></span></div>
     <div class="until-copy" aria-hidden="true">
-      <p class="until-t until-w" id="untilW" aria-hidden="true">Until now<span class="ustar"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 0C53 33 67 47 100 50C67 53 53 67 50 100C47 67 33 53 0 50C33 47 47 33 50 0Z"/></svg></span></p>
+      <p class="until-t until-w" id="untilW" aria-hidden="true">until now.<span class="ustar"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 0C53 33 67 47 100 50C67 53 53 67 50 100C47 67 33 53 0 50C33 47 47 33 50 0Z"/></svg></span></p>
     </div>
     <div class="brand-lock" id="brandLock">
       <div class="mark-big" id="markBig" aria-hidden="true"></div>
@@ -392,10 +404,10 @@ html.stepped,html.stepped body{height:100%;overflow:hidden;overscroll-behavior:n
     <div class="emp-group">
     <h2 class="emp-t" id="empT">What you get:</h2>
     <div class="cards">
-      <article class="card" style="--r:-4deg"><h3>Prepared candidates</h3><p>Coached, job-ready, matched to your roles.</p><div class="art"><img src="assets/ic-prepared.svg" alt=""></div></article>
+      <article class="card" style="--r:-4deg"><h3>Prepared candidates</h3><p>Mentored, job-ready, matched to your roles.</p><div class="art"><img src="assets/ic-prepared.svg" alt=""></div></article>
       <article class="card" style="--r:3deg"><h3>Manager confidence</h3><p>Practical guidance for your team from day one.</p><div class="art"><img src="assets/ic-support.svg" alt=""></div></article>
       <article class="card" style="--r:-2deg"><h3>Hires that stay</h3><p>Ongoing support beyond the start date.</p><div class="art"><img src="assets/ic-stay.svg" alt=""></div></article>
-      <article class="card" style="--r:4deg"><h3>Impact that matters</h3><p>Change a young person’s future for good.</p><div class="art"><img src="assets/ic-impact.svg" alt=""></div></article>
+      <article class="card" style="--r:4deg"><h3>Impact that sets you apart</h3><p>Change a young person’s future for good.</p><div class="art"><img src="assets/ic-impact.svg" alt=""></div></article>
     </div>
     </div>
     <div class="ask" id="ask">
@@ -411,6 +423,9 @@ html.stepped,html.stepped body{height:100%;overflow:hidden;overscroll-behavior:n
 
 </div>
 
+<button class="tour" id="tour" type="button"></button>
+<div class="hint" id="hint" aria-hidden="true"><span class="mouse">Scroll</span><span class="touch">Swipe</span><svg viewBox="0 0 24 24"><path d="M5 9l7 7 7-7"/></svg></div>
+<div class="dip" id="dip" aria-hidden="true"></div>
 <div class="bmark" id="bmark" aria-hidden="true"><svg viewBox="0 0 1057.45 1002.03"><path d="M769.54,676.41c148.45-110.96,287.91-217.79,287.91-217.79-61.07-8.53-122.04-19.93-182.41-34.24l-105.5,252.04Z"/><path d="M617.09,737.93l-23.32-216.84h-1.89l-95.18,216.84h-127.96l-42.87-352.36h116.61l13.24,226.3h2.52l96.45-226.3h113.46l23.32,226.3h2.52l81.11-214.1c-195.94-58.1-382.26-149.11-540.77-278.14-31.09-25.41-60.9-52.44-89.52-80.6C127.01,23.5,108.9,1.87,83.96,0,54.08,14.06,27.57,79.34,29.6,112.13c-5.34,58.32,139.03,143.2,186.09,173.92-60.41-26.1-111.6-71.52-173.51-93.28-5.93-1.13-13.24-1.59-17.89,3-6.58,9.56-12,22.57-15.9,33.83-22.76,70.17,1.16,112.12,66.93,140.51,56.71,30.8,116.6,55.59,178.26,74.55-47.51-11.46-94.41-25.2-140.56-41.27-22.89-5.69-88.78-40.57-105.06-17.57-23.11,78.02,5.04,131.22,86.38,146.7,67.49,20.59,137.22,33.63,207.45,40.19-81.13-.98-161.03-14.18-241.46-22.77-9.39-.1-19.59-.37-28.36,3.52-17.85,10.4-2,66.53,8.2,80.87,18.53,36.11,60.53,39.07,96.75,41.94,68.57,6.85,137.77,6.84,206.43,1.1-63.23,9.52-126.92,16.09-190.79,19.28-26.2,2.15-54.96-.09-79.02,12.22-13.33,10.21,4.64,45.85,12.29,57.17,23.56,38.94,70.03,37.53,109.98,31.79,56.39-5.08,112.39-14.34,167.54-27.11-51.47,16.51-103.5,31.34-155.95,44.37-25.49,7.72-56.46,9.87-76.62,28.59-1.22,1.91-1.74,4.11-1.11,6.37,8.36,31.05,36.94,55.22,69.19,57.96,68.39-6.79,135.06-36.08,199.77-58.88-40.78,23.33-84.04,47.58-125.68,70.25-18.47,10.11-37.28,19.89-54,32.92-11.78,9.16-16.19,16.05-3.61,28.19,45.49,49.17,107.68,2.21,151.47-23.53,53.02-31.37,104.8-64.95,155.64-99.73,46.26-32.57,104.04-74.69,164.37-119.32h-69.74Z"/></svg></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -555,6 +570,11 @@ function buildStats() {
     const svgEl = $(sel);
     svgEl.setAttribute('viewBox', `0 0 ${W} ${H}`);
     svgEl.innerHTML = '';
+    if (bandClass === 'sband') {
+      const fade = mk('linearGradient', { id: 'sbandFade', gradientUnits: 'userSpaceOnUse', x1: 0, y1: 0, x2: W, y2: 0 }, mk('defs', {}, svgEl));
+      mk('stop', { offset: 0, 'stop-color': '#EFEEEA' }, fade);
+      mk('stop', { offset: 1, 'stop-color': '#CD91E9' }, fade);
+    }
     const smooth = pts;
     const { start, segs } = splineParts(smooth), f = n => n.toFixed(1);
     const from = i => `M${f(smooth[i].x)} ${f(smooth[i].y)}`;
@@ -637,7 +657,7 @@ function renderType() {
 }
 
 const w18 = splitWords($('#t18')), wCon = splitWords($('#connects'));
-// the second line of each statement rises in whole, word masks staggered only slightly, rather than typing
+// the second line of each statement rises in whole, all at once, rather than typing
 const wSkills = splitWords($('#skillsLine')), wRoutes = splitWords($('#routesLine'));
 const wCon2 = [...$('#conHl').querySelectorAll('.w > span')], wCon1 = wCon.filter(w => !wCon2.includes(w));
 // where a word sits on screen, to the line (the wrapping selections are positioned, so offsetTop won't do)
@@ -697,10 +717,6 @@ if (reduce) {
   gsap.set('#cardB', { y: () => innerHeight * 1.05, scale: 0.92, rotation: 7 });
   gsap.set('#vs', { autoAlpha: 0, y: 30 });
   gsap.set('#until', { autoAlpha: 0 });
-  // the brand frame's four cloudjects start tucked in near the middle, small, and fly out to their corners
-  const puffs = gsap.utils.toArray('#brand .cjw');
-  const corner = [[-1, -1], [1, -1], [-1, 1], [1, 1]];
-  gsap.set(puffs, { x: i => -corner[i][0] * innerWidth * 0.36, y: i => -corner[i][1] * innerHeight * 0.34, scale: 0.15, rotation: i => (i % 2 ? 1 : -1) * 20 });
   gsap.set('.until-t', { yPercent: 30, opacity: 0 });
   gsap.set(['#brand', '#employers'], { autoAlpha: 0 });
   // the title rides in with the cards, from below, so it never waits alone far above them
@@ -728,7 +744,7 @@ if (reduce) {
     .to('.reveal .tagline .ln > span', { yPercent: 0, duration: 0.9, stagger: 0.12, ease: 'smooth-ease' }, 0.9);
 
   const lens = typeLines.map(l => l.chars.length);
-  const typeFor = i => lens[i] * 0.017;           // seconds per character, the same on every line
+  const typeFor = i => lens[i] * 0.04;            // seconds per character, the same on every line
   // exits all accelerate away the same way; the blur is light so it stays smooth on phones
   const clear = { opacity: 0, y: -60, filter: 'blur(6px)', duration: 0.45, ease: 'power2.in' };
   // the brandmark sits in the corner from the opening line on, in ink over the paper of Until now; it steps
@@ -748,11 +764,16 @@ if (reduce) {
   const s2 = $('#employers .bg video');
   let s2On = false;
   const playS2 = on => { if (on === s2On) return; s2On = on; on ? s2.play().catch(() => {}) : s2.pause(); };
+  // the reveal's loop plays from Until now, so it's moving as the circle opens, until Section 2 has covered it
+  const sb = $('#brand .bg video');
+  let sbOn = false;
+  const playSb = on => { if (on === sbOn) return; sbOn = on; on ? sb.play().catch(() => {}) : sb.pause(); };
   const tl = gsap.timeline({
     paused: true,
     defaults: { ease: 'none' },
     onUpdate() {
       renderType(); drawFan(); drawStats(); drawUntil(); markState(tl.time()); playS1(tl.time() < tl.labels.until + 1);
+      playSb(tl.time() > tl.labels.until && tl.time() < tl.labels.cards + 0.6);
       playS2(tl.time() > tl.labels.cards && tl.time() < tl.labels.join + 1.1);
       playSky(tl.time() < (STORY ? -1 : 1.4) || tl.time() > tl.labels.join);
     }
@@ -790,7 +811,7 @@ if (reduce) {
     .to('#stats', { autoAlpha: 0, y: -60, filter: 'blur(6px)', duration: 0.45, ease: 'power2.in' }, 'blue1')
     .addLabel('type', 'blue1+=0.45')
     .to(T, { 0: lens[0], duration: typeFor(0) }, 'type')
-    .to(wSkills, { yPercent: 0, duration: 0.65, stagger: 0.04, ease: 'smooth-ease' }, '>+0.1')
+    .to(wSkills, { yPercent: 0, duration: 0.65, ease: 'smooth-ease' }, '>+0.45')
     .to('#skillsLine .q', { '--h': 1, duration: 0.1, stagger: 0.22 }, '>-0.1')
     .to('#skillsLine .q', { '--s': 1, duration: 0.35, stagger: 0.22, ease: 'smooth-ease' }, '<')
     .addLabel('rTalent', '>+0.05')
@@ -802,7 +823,7 @@ if (reduce) {
     .to(T, { 1: lens[1], duration: typeFor(1) }, 'grey+=0.45')
     .to('#accessHl', { '--h': 1, duration: 0.12 }, '>-0.05')
     .to('#accessHl', { '--s': 1, duration: 0.4, ease: 'smooth-ease' }, '<')
-    .to(wRoutes, { yPercent: 0, duration: 0.65, stagger: 0.04, ease: 'smooth-ease' }, '>+0.1')
+    .to(wRoutes, { yPercent: 0, duration: 0.65, ease: 'smooth-ease' }, '>+0.45')
     .addLabel('rAccess', '>+0.05')
 
   // 6 · the stage clears: the access lines fade out completely, the paper comes up empty and holds a beat,
@@ -813,12 +834,11 @@ if (reduce) {
     .to('.until-t', { yPercent: 0, opacity: 1, duration: 0.45, ease: 'smooth-ease' }, 'until+=1.1')
     .addLabel('rUntil', 'until+=1.6')
   // 7 · with no further scroll, after a held beat, its star turns blue and the brand frame grows out of it to fill
-  //     the screen — the words turning white as it passes — while its clouds fly out to the corners and float
+  //     the screen — the words turning white as it passes — its video already playing
     .addLabel('grow', 'rUntil+=0.9')
     .to('#untilStar', { color: '#2B4BE0', scale: 1.25, rotation: 45, duration: 0.3, ease: 'smooth-ease' }, 'grow')
     .set('#brand', { autoAlpha: 1 }, 'grow+=0.25')
     .to(IR, { r: 1, duration: 1, ease: 'power2.in' }, 'grow+=0.25')
-    .to(puffs, { x: 0, y: 0, scale: 1, rotation: 0, duration: 1.1, stagger: 0.05, ease: 'power2.out' }, 'grow+=0.6')
     .to('.until-t', { opacity: 0, scale: 0.94, duration: 0.5, ease: 'power1.in' }, 'grow+=0.9')
 
   // 8 · the brand reveal: the same frame, the mark fanning on and then its tagline
@@ -831,6 +851,7 @@ if (reduce) {
   // 9 · what Wingspan does, rising in line by line on the same living background
     .addLabel('connects', 'rBrand+=' + HOLD)
     .to('#brandLock', { y: -90, opacity: 0, duration: 0.4, ease: 'power2.in' }, 'connects')
+    .to('#sbTint', { opacity: 0.5, duration: 0.6, ease: 'sine.inOut' }, 'connects')
     .to(wCon1, { yPercent: 0, rotation: 0, duration: 0.7, stagger: (i, el) => conLine(el) * 0.16 + i * 0.012, ease: 'smooth-ease' }, 'connects+=0.35')
     .to(wCon2, { yPercent: 0, rotation: 0, duration: 0.65, stagger: 0.045, ease: 'smooth-ease' }, 'connects+=1.1')
     .to('#conHl', { '--h': 1, duration: 0.1 }, 'connects+=1.6')
@@ -885,6 +906,10 @@ if (reduce) {
      pause in the scroll events, a turn, a fresh swipe, a touch, a key). Reversing is always allowed, mid-play too.
      ---------- */
   document.documentElement.classList.add('stepped');
+  // the arrow comes up once the opening line has landed, and goes for good with the first move
+  const hint = $('#hint');
+  const hintIn = gsap.delayedCall(1.8, () => hint.classList.add('on'));
+  const hintOut = () => { hintIn.kill(); hint.classList.remove('on'); };
   let at = 0, playing = false, stepDir = 0, fresh = true, lastWheel = 0, lastSign = 0;
   // A turn counts once the movement the other way adds up to a real gesture: a trackpad's coast can end with one
   // tiny flick back, which mustn't send the page back a step, but a gentle swipe back is made of small movements
@@ -902,24 +927,78 @@ if (reduce) {
     lastWheel = now;
   }, { capture: true, passive: true });
   addEventListener('touchstart', () => { fresh = true; }, { capture: true, passive: true });
-  function step(d) {
+  function step(d, byTour) {
     if (!fresh) return;
+    // scrolling yourself takes over from the tour
+    if (!byTour) stopTour();
     const i = gsap.utils.clamp(0, stops.length, at + d);
     if (i === at) return;
     // a new gesture the same way while a section is still playing carries straight on to the next one, a little
     // quicker, rather than being ignored (which made the page feel stuck on the longer transitions)
     const hurry = playing && d === stepDir;
     fresh = false; at = i; stepDir = d; playing = true;
+    hintOut();
+    // going back doesn't rewind the animation: it dips through blue and comes up on the finished section before
+    if (d < 0) { dipBack(); drawTour(); return; }
+    const covered = dipping && dipTo !== null;
+    dipTo = null;
+    if (covered) { gsap.to(dip, { autoAlpha: 0, duration: 0.3, ease: 'power1.out', overwrite: true, onComplete: () => { dipping = false; } }); }
     const to = tlAt(i), span = Math.abs(to - tl.time());
-    // forward plays at the story's own pace; going back is a little quicker, since it's been seen
-    gsap.to(tl, { time: to, duration: Math.max(0.45, span * (d > 0 ? 1 : 0.6) * (hurry ? 0.6 : 1)), ease: 'none', overwrite: true,
-      onComplete: () => { playing = false; } });
+    // forward plays at the story's own pace
+    gsap.to(tl, { time: to, duration: Math.max(0.45, span * (hurry ? 0.6 : 1)), ease: 'none', overwrite: true,
+      onComplete: () => { playing = false; tourNext(); } });
+    drawTour();
   }
+  const dip = $('#dip');
+  let dipping = false, dipTo = null;
+  function dipBack() {
+    // further steps back while it's dipping just move where it lands
+    gsap.killTweensOf(tl);
+    dipTo = at;
+    dipping = true;
+    gsap.to(dip, { autoAlpha: 1, duration: 0.22, ease: 'power1.in', overwrite: true, onComplete: () => {
+      tl.time(tlAt(dipTo)); dipTo = null;
+      gsap.to(dip, { autoAlpha: 0, duration: 0.34, ease: 'power1.out', overwrite: true, onComplete: () => { dipping = false; playing = false; } });
+    } });
+  }
+  /* ---------- the tour: steps through the same stops, resting on each long enough to read it; at the end the button
+     takes you back to the top ---------- */
+  const tour = $('#tour');
+  // seconds to rest on each stop, from the opening line to 'What we ask'
+  const REST = [2.5, 4, 3.5, 3.5, 3, 4, 7, 4.5];
+  const ICON = { play: '<path d="M4 2l10 6-10 6z"/>', pause: '<path d="M3 2h4v12H3zM9 2h4v12H9z"/>', top: '<path d="M8 2l6 7h-4v5H6V9H2z"/>' };
+  let touring = false, tourWait = null;
+  function drawTour() {
+    const end = at === stops.length && !touring;
+    const [icon, label] = touring ? ['pause', 'Pause'] : end ? ['top', 'Back to top'] : ['play', 'Play'];
+    if (tour.dataset.s === label) return;
+    tour.dataset.s = label;
+    tour.innerHTML = `<svg viewBox="0 0 16 16" aria-hidden="true">${ICON[icon]}</svg><span>${label}</span>`;
+  }
+  function stopTour() {
+    if (tourWait) tourWait.kill();
+    tourWait = null; touring = false; drawTour();
+  }
+  function tourNext() {
+    if (!touring) return;
+    if (at === stops.length) { stopTour(); return; }
+    tourWait = gsap.delayedCall(REST[at], () => { fresh = true; step(1, true); });
+  }
+  tour.addEventListener('click', () => {
+    tour.blur();
+    if (touring) { stopTour(); return; }
+    if (at === stops.length) { at = 0; stepDir = -1; playing = true; dipBack(); drawTour(); return; }
+    touring = true; hintOut(); drawTour();
+    if (playing) return;   // a section still playing carries on into the tour when it lands
+    fresh = true; step(1, true);
+  });
+  drawTour();
+  tour.classList.add('on');
   Observer.create({ target: window, type: 'wheel,touch', wheelSpeed: -1, tolerance: 10, preventDefault: true,
     onUp: () => step(1), onDown: () => step(-1) });
   addEventListener('keydown', e => {
     const k = { ArrowDown: 1, PageDown: 1, ' ': 1, ArrowUp: -1, PageUp: -1 }[e.key];
-    if (!k) return;
+    if (!k || (e.key === ' ' && e.target === tour)) return;
     e.preventDefault();
     if (e.repeat) return;
     fresh = true; step(k);
