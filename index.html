@@ -3,10 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Wingspan</title>
-<meta name="description" content="Bringing a wider world of work within reach.">
-<meta property="og:title" content="Wingspan">
-<meta property="og:description" content="Bringing a wider world of work within reach.">
+<title>Wingspan | Hire care-experienced young people</title>
+<meta name="description" content="Wingspan makes it easy to hire care-experienced young people, and supports you both until the job sticks. Our London pilot begins February 2027.">
+<link rel="canonical" href="https://www.welcometowingspan.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Wingspan">
+<meta property="og:url" content="https://www.welcometowingspan.com/">
+<meta property="og:title" content="Wingspan | Hire care-experienced young people">
+<meta property="og:description" content="Wingspan makes it easy to hire care-experienced young people, and supports you both until the job sticks. Our London pilot begins February 2027.">
+<meta property="og:image" content="https://www.welcometowingspan.com/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Wingspan logo on a blue sky with clouds. Bringing a wider world of work within reach.">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/favicon.png">
 <!-- the page opens on the story; marked before anything paints, so the cloud hero never flashes up first -->
@@ -18,7 +27,7 @@
    scroll, swipe or key plays the next beat at its own pace, so none can be flown past and none is a slog.
    The opening line → both stat cards, 'compared to'
    between them → the talent and access lines, still on Section 1 → Until now, whose star then opens by itself
-   into the brand reveal → what Wingspan does → cards on Section 2 → the founding-employer ask → the join, under
+   into the brand reveal → what Wingspan does → cards on Section 2 → the visionary-employer ask → the join, under
    the hero's clouds. Single light look by choice: the brand palette is fixed. */
 :root{
   --paper:#EFEEEA; --ink:#2A2A2A; --soft:#8E8270;
@@ -107,7 +116,12 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 .tour:hover{transform:scale(1.04)}
 .tour:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 .tour svg{display:block;width:13px;height:13px;fill:currentColor}
-/* going back: the screen dips through the brand blue and comes up on the section before */
+/* going back along one background: the background stays and only what's on it fades, swapping while it's hidden.
+   (!important holds these at 0 over the animation's own values until the swap is done.) */
+.film.backing :is(#open,#stats,#type,#type2,#brandLock,#conWrap,.emp-group,#ribbon,#ask,#join,#endSky){transition:opacity .3s ease}
+.film.backing .tint{transition:opacity .4s ease}
+.film.fg-out :is(#open,#stats,#type,#type2,#brandLock,#conWrap,.emp-group,#ribbon,#ask,#join,#endSky){opacity:0!important;transition:opacity .16s ease}
+/* going back to a different background: the screen dips through the brand blue and comes up on the section before */
 .dip{position:fixed;inset:0;z-index:40;background:var(--blue);opacity:0;visibility:hidden;pointer-events:none}
 
 /* ---------- sky: drifting clouds, then the mark and its subhead (ported from the Wingspan Splash Copy) ---------- */
@@ -139,7 +153,7 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 .spath path{fill:none;stroke-linecap:butt;stroke-linejoin:round}
 /* the squiggle runs from cream on the left to the brand's Electric Lavender on the right, and carries no words */
 .sband{stroke:url(#sbandFade)}
-.stat-card{position:relative;flex:0 1 auto;width:min(38vw,600px);box-shadow:0 24px 60px rgba(6,10,38,.35);padding:clamp(64px,7vw,120px) clamp(28px,4vw,72px) clamp(36px,4vw,72px);border-radius:18px;text-align:center;will-change:transform}
+.stat-card{position:relative;flex:0 1 auto;width:min(34vw,560px);box-shadow:0 24px 60px rgba(6,10,38,.35);padding:clamp(64px,7vw,120px) clamp(28px,4vw,72px) clamp(36px,4vw,72px);border-radius:18px;text-align:center;will-change:transform}
 /* the same cloudy blue as the blue section: a gradient with soft blurred blobs and a fine dot texture */
 .card-bg{position:absolute;inset:0;border-radius:inherit;overflow:hidden;z-index:-1;background:linear-gradient(155deg,#2B4BE0 0%,#1D3BCE 45%,#4F72F0 100%)}
 .card-bg i{position:absolute;border-radius:50%;filter:blur(40px);opacity:.6;animation:drift 14s ease-in-out infinite alternate}
@@ -160,8 +174,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 .stat-card .kicker{display:block;margin-top:.35em;color:#C8F08F;font-size:clamp(18px,1.9vw,34px);font-weight:900;letter-spacing:.04em;line-height:1.05;text-transform:uppercase}
 /* the 3× pops in the lime of the labels, a step up from the line but well short of the number */
 .x3{color:#C8F08F;font-size:1.45em;font-weight:900;letter-spacing:-.02em;line-height:.9}
-/* the phrase that joins the two cards, landing between them */
-.vs{position:relative;flex:0 0 auto;margin:0;color:var(--cream);text-shadow:0 2px 18px rgba(20,42,154,.45);font-size:clamp(20px,2.3vw,42px);font-weight:900;letter-spacing:-.01em;line-height:1;text-align:center;white-space:nowrap}
+/* the phrase that joins the two cards is the point of this frame: it lands big, on its own, before the second card */
+.vs{position:relative;flex:0 0 auto;margin:0;color:var(--cream);text-shadow:0 1px 3px rgba(20,42,154,.55),0 2px 20px rgba(20,42,154,.6);font-size:clamp(26px,3.4vw,64px);font-weight:900;letter-spacing:-.03em;line-height:1;text-align:center;white-space:nowrap}
 .stat-card p{margin:.55em auto 0;max-width:20ch;font-size:clamp(20px,2.1vw,38px);font-weight:800;line-height:1.12;letter-spacing:-.015em}
 .sticker{position:absolute;left:50%;top:0;width:clamp(88px,8.5vw,150px);aspect-ratio:1;border-radius:50%;background:var(--paper);display:grid;place-items:center;box-shadow:0 8px 24px rgba(42,42,42,.18)}
 .sticker .ico{width:60%;height:60%;color:var(--blue)}
@@ -239,7 +253,7 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 .cards .card:nth-of-type(4){--cbg:url(assets/cards/card-4.webp)}
 /* centred by GSAP percentages (not a CSS transform), so their own moves never undo the centring */
 .con-wrap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(90vw,1300px);display:flex;flex-direction:column;align-items:center;gap:clamp(24px,4vh,48px)}
-.connects{text-shadow:0 2px 16px rgba(20,42,154,.5);margin:0;text-align:center;font-size:clamp(30px,4.6vw,84px);font-weight:900;line-height:1.08;letter-spacing:-.03em}
+.connects{text-shadow:0 2px 16px rgba(20,42,154,.5);margin:0;text-align:center;font-size:clamp(30px,4vw,76px);font-weight:900;line-height:1.08;letter-spacing:-.03em}
 
 .ask{position:absolute;left:50%;top:50%;width:min(92vw,1300px);display:flex;flex-direction:column;align-items:center;gap:clamp(16px,2vw,28px);text-align:center}
 /* the close: the hero's clouds rise back up from the bottom behind the ask, so the page ends where it began */
@@ -248,13 +262,17 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 .end-sky video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .ask{text-shadow:0 2px 24px rgba(20,42,154,.4)}
 .ask-t{margin:0;max-width:22ch;font-size:clamp(34px,5.2vw,96px);font-weight:900;line-height:1.04;letter-spacing:-.03em}
-/* '20 founding employers' carries the ask: lilac bar, as the story's key words */
-/* '20 founding employers' takes the same lollipop selection as the story, and never breaks across lines */
+/* '20 visionary employers' carries the ask: lilac bar, as the story's key words */
+/* '20 visionary employers' takes the same lollipop selection as the story, and never breaks across lines */
 #askHl{white-space:nowrap}
 /* on the join, 'London pilot' takes the lollipop selection in green, the colour for the positive */
 #joinHl{white-space:nowrap}
-/* and its closing line in the brand's Electric Lavender, lifted off the pale sky by a brand-blue shadow */
-.love{color:var(--lilac);text-shadow:0 1px 2px rgba(29,59,206,.6),0 2px 16px rgba(20,42,154,.55)}
+/* on one line where it fits, now the button carries the next step */
+#joinP{max-width:none}
+/* the way in: a solid button in the brand's Electric Lavender */
+.book{display:inline-block;pointer-events:auto;padding:.7em 1.3em;border-radius:999px;background:var(--lilac);color:#fff;font-size:clamp(17px,1.6vw,26px);font-weight:800;line-height:1;text-decoration:none;box-shadow:0 10px 28px rgba(6,10,38,.28);transition:transform .2s ease,background .2s ease}
+.book:hover{transform:scale(1.04);background:#B672E0}
+.book:focus-visible{outline:3px solid var(--cream);outline-offset:3px}
 .join-t{font-size:clamp(44px,7.4vw,140px)}
 .ask-logo{width:clamp(180px,22vw,360px);margin-top:clamp(10px,2vh,28px);color:var(--cream)}
 .ask-logo svg{display:block;width:100%;height:auto;fill:currentColor}
@@ -290,18 +308,23 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
   .stat-card h3{font-size:64px}
   .sticker{width:72px}
   /* stacked, the second card's sticker rises over the gap, so 'compared to' keeps clear of it */
-  .vs{margin:2px 0 32px}
+  .vs{margin:2px 0 32px;font-size:34px}
+  #joinP{font-size:min(18px,4.8vw);white-space:nowrap}
+  .connects br{display:none}
   /* the brand reveal: the mark fills the width, its tagline set beneath it at a size a phone can read */
   .brand-lock{--lw:86vw}
   .ask-t{font-size:29px}
   .ask-t.join-t{font-size:44px}
   .brand-lock .tagline{position:static;margin-top:18px;text-align:center;white-space:normal;font-size:17px}
   .cards{flex-wrap:wrap;gap:12px}
-  .card{width:42vw;height:27vh;margin:0}
+  /* as tall as their words need, at least a quarter of the screen, so nothing is clipped on a short phone */
+  .card{width:44vw;height:auto;min-height:27vh;margin:0}
+  .card h3{padding:16px 10px 0;font-size:clamp(19px,5.6vw,22px)}
+  .card .art{margin:0 12px 12px}
   .t18 br{display:none}
   .t18{font-size:clamp(36px,10.5vw,52px)}
-  .emp-group{padding-top:56px;gap:1.75rem}
-  .card p{font-size:15px}
+  .emp-group{padding-top:56px;gap:1rem}
+  .card p{margin:auto 0 10px;padding:8px 10px 0;font-size:clamp(13px,3.8vw,15px)}
 }
 /* on a portrait screen only a narrow slice of the sky loop shows, and its middle is clear blue: hold it to the
    left, where its biggest cloud is, so the closing sky still reads as clouds on a phone */
@@ -393,7 +416,7 @@ html.stepped,html.stepped body{height:100%;overflow:hidden;overscroll-behavior:n
       <p class="tagline" id="brandTag"><span class="ln"><span>Bringing a wider world</span></span><span class="ln"><span>of work within reach.</span></span></p>
     </div>
     <div class="con-wrap" id="conWrap">
-      <p class="connects" id="connects">Wingspan helps employers hire care-experienced young people, <span id="conHl">and supports both until the job&nbsp;sticks.</span></p>
+      <p class="connects" id="connects">Wingspan makes it easy to hire <br>care-experienced young people, <br><span id="conHl">and supports you both until the job&nbsp;sticks.</span></p>
     </div>
   </section>
 
@@ -402,21 +425,22 @@ html.stepped,html.stepped body{height:100%;overflow:hidden;overscroll-behavior:n
     <svg class="ribbon" id="ribbon" aria-hidden="true"></svg>
     <div class="end-sky" id="endSky" aria-hidden="true"><video data-src="media/day.mp4" poster="media/day.jpg" muted loop playsinline preload="auto"></video></div>
     <div class="emp-group">
-    <h2 class="emp-t" id="empT">What you get:</h2>
+    <h2 class="emp-t" id="empT">What you get from this first-of-its-kind programme:</h2>
     <div class="cards">
       <article class="card" style="--r:-4deg"><h3>Prepared candidates</h3><p>Mentored, job-ready, matched to your roles.</p><div class="art"><img src="assets/ic-prepared.svg" alt=""></div></article>
-      <article class="card" style="--r:3deg"><h3>Manager confidence</h3><p>Practical guidance for your team from day one.</p><div class="art"><img src="assets/ic-support.svg" alt=""></div></article>
+      <article class="card" style="--r:3deg"><h3>Confident managers</h3><p>Practical guidance for your team from day one.</p><div class="art"><img src="assets/ic-support.svg" alt=""></div></article>
       <article class="card" style="--r:-2deg"><h3>Hires that stay</h3><p>Ongoing support beyond the start date.</p><div class="art"><img src="assets/ic-stay.svg" alt=""></div></article>
       <article class="card" style="--r:4deg"><h3>Impact that sets you apart</h3><p>Change a young person’s future for good.</p><div class="art"><img src="assets/ic-impact.svg" alt=""></div></article>
     </div>
     </div>
     <div class="ask" id="ask">
-      <h2 class="ask-t" id="askT">We’re looking for <span class="sel lil" id="askHl">20&nbsp;founding&nbsp;employers</span> to launch Wingspan.</h2>
+      <h2 class="ask-t" id="askT">We’re looking for <span class="sel lil" id="askHl">20&nbsp;visionary&nbsp;employers</span> to launch Wingspan with us.</h2>
       <p class="ask-p" id="askP">Be one of the first to redefine what’s possible from care to career.</p>
     </div>
     <div class="ask" id="join">
       <h2 class="ask-t join-t" id="joinT">Will you join us?</h2>
-      <p class="ask-p" id="joinP">Our <span class="sel go" id="joinHl">London&nbsp;pilot</span> begins February 2027.<br><span class="love">We’d love to tell you about it.</span></p>
+      <p class="ask-p" id="joinP">Our <span class="sel go" id="joinHl">London&nbsp;pilot</span> begins February 2027.</p>
+      <a class="book" id="joinBtn" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1lQsGgXBKxuBs3Hs2Dd2GLIReO2FpkgyuR0H7JJZsQePAcRXFmAlbY2mN5q43rniNbnLC2kqsW" target="_blank" rel="noopener">Book a time to learn more</a>
       <div class="ask-logo" id="joinLogo" role="img" aria-label="Wingspan"></div>
     </div>
   </section>
@@ -715,7 +739,7 @@ if (reduce) {
   // the cards wait just below the fold, so they arrive the moment the opening line moves on
   gsap.set('#cardA', { y: () => innerHeight * 0.9, scale: 0.92, rotation: -7 });
   gsap.set('#cardB', { y: () => innerHeight * 1.05, scale: 0.92, rotation: 7 });
-  gsap.set('#vs', { autoAlpha: 0, y: 30 });
+  gsap.set('#vs', { autoAlpha: 0, y: 30, scale: 0.7 });
   gsap.set('#until', { autoAlpha: 0 });
   gsap.set('.until-t', { yPercent: 30, opacity: 0 });
   gsap.set(['#brand', '#employers'], { autoAlpha: 0 });
@@ -725,7 +749,7 @@ if (reduce) {
   // the same entrance as the hero mark: it rises in and the wing fans open from the top feather down
   gsap.set('#markBig', { opacity: 0, yPercent: 14, scale: 0.94, transformOrigin: '50% 60%' });
   // the close arrives in parts: the headline, then its line (and on the join, the mark)
-  gsap.set(['#askT', '#askP', '#joinT', '#joinP', '#joinLogo'], { autoAlpha: 0, y: 50 });
+  gsap.set(['#askT', '#askP', '#joinT', '#joinP', '#joinBtn', '#joinLogo'], { autoAlpha: 0, y: 50 });
   // the cards wait a full screen below and leave a full screen above, so stacked on a phone they never linger in view
   gsap.set(cards, { y: () => innerHeight * 1.05, rotation: i => [-14, 10, -8, 16][i] });
 
@@ -796,13 +820,13 @@ if (reduce) {
     .addLabel('stats', 'r18+=' + HOLD)
     .to('#open', { yPercent: -60, opacity: 0, duration: 0.6, ease: 'power2.in' }, 'stats')
     .set('#stats', { autoAlpha: 1 }, 'stats')
-    .to(S, { p1: 1, duration: 1.3, ease: 'sine.inOut' }, 'stats+=0.1')
+    .to(S, { p1: 1, duration: 2.5, ease: 'sine.inOut' }, 'stats+=0.1')
     .to('#cardA', { y: 0, scale: 1, rotation: -2, duration: 0.7, ease: 'smooth-ease' }, 'stats+=0.2')
     .fromTo('#cardA .sticker', { scale: 0, rotation: -140 }, { scale: 1, rotation: -8, duration: 0.5, ease: 'elastic-soft', immediateRender: false }, 'stats+=0.5')
-    .to('#vs', { autoAlpha: 1, y: 0, duration: 0.4, ease: 'smooth-ease' }, 'stats+=0.8')
-    .to('#cardB', { y: 0, scale: 1, rotation: 2, duration: 0.7, ease: 'smooth-ease' }, 'stats+=1.05')
-    .fromTo('#cardB .sticker', { scale: 0, rotation: -140 }, { scale: 1, rotation: 8, duration: 0.5, ease: 'elastic-soft', immediateRender: false }, 'stats+=1.35')
-    .addLabel('rStats', 'stats+=1.85')
+    .to('#vs', { autoAlpha: 1, y: 0, scale: 1, duration: 0.5, ease: 'smooth-ease' }, 'stats+=0.85')
+    .to('#cardB', { y: 0, scale: 1, rotation: 2, duration: 0.7, ease: 'smooth-ease' }, 'stats+=2.2')
+    .fromTo('#cardB .sticker', { scale: 0, rotation: -140 }, { scale: 1, rotation: 8, duration: 0.5, ease: 'elastic-soft', immediateRender: false }, 'stats+=2.5')
+    .addLabel('rStats', 'stats+=3')
 
   // 4 · Section 1 stays on (the clouds are saved for Wingspan): the stats lift away, the first line types, then the
   //     second rises in and each quality is selected in lilac, one after another
@@ -867,7 +891,7 @@ if (reduce) {
     .to(S, { p2: 1, duration: 1.6, ease: 'sine.inOut' }, 'cards+=0.15')
     .addLabel('rCards', 'cards+=2.2')
 
-  // 11 · the cards lift away and the tee-up lands on Section 2: 20 founding employers
+  // 11 · the cards lift away and the tee-up lands on Section 2: 20 visionary employers
     .addLabel('ask', 'rCards+=' + HOLD)
     .to(cards, { y: () => -innerHeight * 1.1, rotation: i => [-10, 8, -6, 12][i], duration: 0.65, stagger: 0.08, ease: 'power2.in' }, 'ask')
     .to('#empT', { yPercent: -80, opacity: 0, duration: 0.4, ease: 'power2.in' }, 'ask')
@@ -887,6 +911,7 @@ if (reduce) {
     .to('#joinP', { autoAlpha: 1, y: 0, duration: 0.55, ease: 'smooth-ease' }, 'join+=0.75')
     .to('#joinHl', { '--h': 1, duration: 0.12 }, 'join+=1.15')
     .to('#joinHl', { '--s': 1, duration: 0.45, ease: 'smooth-ease' }, 'join+=1.15')
+    .to('#joinBtn', { autoAlpha: 1, y: 0, duration: 0.55, ease: 'smooth-ease' }, 'join+=1')
     .to('#joinLogo', { autoAlpha: 1, y: 0, duration: 0.6, ease: 'smooth-ease' }, 'join+=1.05')
     .addLabel('rJoin', 'join+=1.7')
     .to({}, { duration: 0.4 });
@@ -916,14 +941,23 @@ if (reduce) {
   // too, and judging each one alone ignored it, so the page sometimes wouldn't scroll back up.
   // (Reading a swipe the same way during a coast as new, from the movement growing again, was tried and taken
   // out: a real swipe's movement dips and climbs on its own, so one swipe went through several sections.)
-  let turn = 0;
+  let turn = 0, lastStep = 0, coastLow = Infinity;
   addEventListener('wheel', e => {
     const now = performance.now(), sign = Math.sign(e.deltaY);
     if (now - lastWheel > 140) { fresh = true; turn = 0; if (sign) lastSign = sign; }
     else if (sign && sign !== lastSign) {
       turn += Math.abs(e.deltaY);
       if (turn > 8) { fresh = true; lastSign = sign; turn = 0; }
-    } else if (sign) turn = 0;
+    } else if (sign) {
+      turn = 0;
+      // Going back lands in half a second, well inside a trackpad's coast, so a swipe back made during the coast never
+      // shows a pause and would be ignored, again and again. Once the first half second has passed, movement climbing
+      // well above the coast's low point counts as a new swipe back. (Forward keeps the plain rule: its sections play
+      // for longer, and reading movement this way going forward moved several sections at once.)
+      const size = Math.abs(e.deltaY);
+      if (sign < 0 && stepDir < 0 && now - lastStep > 600 && size >= 10 && size >= coastLow * 2.5) fresh = true;
+      coastLow = Math.min(coastLow, size);
+    }
     lastWheel = now;
   }, { capture: true, passive: true });
   addEventListener('touchstart', () => { fresh = true; }, { capture: true, passive: true });
@@ -937,35 +971,61 @@ if (reduce) {
     // quicker, rather than being ignored (which made the page feel stuck on the longer transitions)
     const hurry = playing && d === stepDir;
     fresh = false; at = i; stepDir = d; playing = true;
+    lastStep = performance.now(); coastLow = Infinity;
     hintOut();
     // going back doesn't rewind the animation: it dips through blue and comes up on the finished section before
     if (d < 0) { dipBack(); drawTour(); return; }
     const covered = dipping && dipTo !== null;
     dipTo = null;
-    if (covered) { gsap.to(dip, { autoAlpha: 0, duration: 0.3, ease: 'power1.out', overwrite: true, onComplete: () => { dipping = false; } }); }
+    if (covered) {
+      if (softWait) softWait.kill();
+      film.classList.remove('fg-out', 'backing');
+      gsap.to(dip, { autoAlpha: 0, duration: 0.3, ease: 'power1.out', overwrite: true, onComplete: () => { dipping = false; } });
+    }
     const to = tlAt(i), span = Math.abs(to - tl.time());
     // forward plays at the story's own pace
     gsap.to(tl, { time: to, duration: Math.max(0.45, span * (hurry ? 0.6 : 1)), ease: 'none', overwrite: true,
       onComplete: () => { playing = false; tourNext(); } });
     drawTour();
   }
-  const dip = $('#dip');
-  let dipping = false, dipTo = null;
+  const dip = $('#dip'), film = $('#film');
+  let dipping = false, dipTo = null, softWait = null;
+  // which background a moment in the story sits on (0: mid-change, between two of them)
+  const bgAt = t => {
+    const L = tl.labels;
+    return t <= L.rAccess ? 1 : t < L.brand ? 0 : t <= L.rConnects ? 2 : t >= L.rCards ? 3 : 0;
+  };
+  function land() {
+    if (dipTo !== null) tl.time(tlAt(dipTo));
+    dipTo = null;
+  }
+  function endBack() { dipping = false; if (stepDir < 0) playing = false; film.classList.remove('backing'); }
+  function softBack() {
+    if (softWait) softWait.kill();
+    film.classList.add('backing', 'fg-out');
+    softWait = gsap.delayedCall(0.16, () => {
+      land();
+      film.classList.remove('fg-out');
+      softWait = gsap.delayedCall(0.3, endBack);
+    });
+  }
   function dipBack() {
-    // further steps back while it's dipping just move where it lands
+    // further steps back while it's fading just move where it lands
     gsap.killTweensOf(tl);
     dipTo = at;
     dipping = true;
+    const bg = bgAt(tl.time());
+    if (bg && bg === bgAt(tlAt(at)) && !gsap.getProperty(dip, 'opacity')) { softBack(); return; }
     gsap.to(dip, { autoAlpha: 1, duration: 0.22, ease: 'power1.in', overwrite: true, onComplete: () => {
-      tl.time(tlAt(dipTo)); dipTo = null;
-      gsap.to(dip, { autoAlpha: 0, duration: 0.34, ease: 'power1.out', overwrite: true, onComplete: () => { dipping = false; playing = false; } });
+      land();
+      gsap.to(dip, { autoAlpha: 0, duration: 0.34, ease: 'power1.out', overwrite: true, onComplete: endBack });
     } });
   }
   /* ---------- the tour: steps through the same stops, resting on each long enough to read it; at the end the button
      takes you back to the top ---------- */
   const tour = $('#tour');
   // seconds to rest on each stop, from the opening line to 'What we ask'
-  const REST = [2.5, 4, 3.5, 3.5, 3, 4, 7, 4.5];
+  const REST = [2.5, 3.5, 3.5, 3.5, 3, 4, 7, 4.5];
   const ICON = { play: '<path d="M4 2l10 6-10 6z"/>', pause: '<path d="M3 2h4v12H3zM9 2h4v12H9z"/>', top: '<path d="M8 2l6 7h-4v5H6V9H2z"/>' };
   let touring = false, tourWait = null;
   function drawTour() {
