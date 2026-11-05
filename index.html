@@ -40,10 +40,11 @@ html{background:#8FA9EE}
 /* opening on the story: the same looping sky, without the brand lockup, the first line in cream over it */
 /* opening on the story: no clouds at all, the first line sits straight on its own background (Section 1) */
 html.story #sky{display:none}
-/* until the animation is set up, only the opening screen shows (the brand hero, or the story's first line);
-   without this every section paints stacked at once while the scripts download */
-html:not(.ready) .film > .layer:not(#sky):not(#open):not(#bgA),
-html:not(.ready):not(.story) #open{visibility:hidden}
+/* until the animation is set up, only the opening background shows; without this every section paints stacked at
+   once while the scripts download, and the story's first line flashes up whole (in the fallback font) before it
+   is hidden and rises in properly */
+html:not(.ready) .film > .layer:not(#sky):not(#bgA),
+html:not(.ready) #open{visibility:hidden}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-webkit-font-smoothing:antialiased;overflow-x:clip}
 
 /* ---------- the frame: every beat is a layer in one pinned viewport ---------- */
@@ -922,7 +923,9 @@ if (reduce) {
   const startAt = tl.labels.r18;
   // there is no sky: the opening line rises in on its own over Section 1
   tl.time(startAt);
-  gsap.fromTo(w18, { yPercent: 108 }, { yPercent: 0, duration: 0.7, stagger: 0.05, ease: 'smooth-ease', delay: 0.4 });
+  // it waits for the brand font (a second at most), so it never rises in one face and swaps to another
+  Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 1000))]).then(() =>
+    gsap.fromTo(w18, { yPercent: 108 }, { yPercent: 0, duration: 0.7, stagger: 0.05, ease: 'smooth-ease', delay: 0.2 }));
   // where the story's playhead sits at each resting point: the opening line, then each beat once complete
   const tlAt = k => k === 0 ? startAt : tl.labels[stops[Math.min(k, stops.length) - 1]];
   /* ---------- the page doesn't scroll: each scroll, swipe or key commits to the next section, which then plays
