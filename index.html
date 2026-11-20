@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Wingspan | Hire care-experienced young people</title>
-<meta name="description" content="Wingspan makes it easy to hire care-experienced young people, and supports you both until the job sticks. Our London pilot begins February 2027.">
+<meta name="description" content="Wingspan matches care-experienced young people with 3-month internships at leading organisations, and supports intern and employer until the job sticks. Our London pilot launches early 2027.">
 <link rel="canonical" href="https://www.welcometowingspan.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Wingspan">
 <meta property="og:url" content="https://www.welcometowingspan.com/">
 <meta property="og:title" content="Wingspan | Hire care-experienced young people">
-<meta property="og:description" content="Wingspan makes it easy to hire care-experienced young people, and supports you both until the job sticks. Our London pilot begins February 2027.">
+<meta property="og:description" content="Wingspan matches care-experienced young people with 3-month internships at leading organisations, and supports intern and employer until the job sticks. Our London pilot launches early 2027.">
 <meta property="og:image" content="https://www.welcometowingspan.com/assets/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -20,14 +20,16 @@
 <link rel="apple-touch-icon" href="assets/favicon.png">
 <!-- the page opens on the story; marked before anything paints, so the cloud hero never flashes up first -->
 <script>document.documentElement.classList.add('story');</script>
+<!-- the opening background, fetched first so it's there as the page paints -->
+<link rel="preload" as="image" href="media/section1.jpg" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 /* Experiential landing, played like an advert: one fixed frame and one timeline. The page doesn't scroll — each
    scroll, swipe or key plays the next beat at its own pace, so none can be flown past and none is a slog.
-   The opening line → both stat cards, 'compared to'
-   between them → the talent and access lines, still on Section 1 → Until now, whose star then opens by itself
-   into the brand reveal → what Wingspan does → cards on Section 2 → the visionary-employer ask → the join, under
+   The opening line → both stat cards →
+   the talent and access lines, still on Section 1 → Until now, whose star then opens by itself
+   into the brand reveal → what Wingspan does → cards on Section 2 → the purpose-led employer ask → the join, under
    the hero's clouds. Single light look by choice: the brand palette is fixed. */
 :root{
   --paper:#EFEEEA; --ink:#2A2A2A; --soft:#8E8270;
@@ -57,6 +59,13 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 .l-stats{z-index:6;overflow:visible}
 /* Section 1 sits under the opening line and the stats; the brand hero's sky lifts away to uncover it */
 #bgA{z-index:4}
+#bgS{z-index:5}
+.bg.ss{--b0:#0C1A8C;--b1:rgba(29,59,206,.8);--b2:rgba(6,10,38,.6);--b3:rgba(43,75,224,.6)}
+/* the mockup's deeper navy: the loop is a brighter blue, so a night tint takes it down */
+/* (a light touch only, so the loop's texture and movement still read) */
+.bg.ss .tint{background:#070B45;opacity:.15}
+/* this frame's warmer creams, from the mockup: the words, the badges and the band */
+.l-stats{--sc:#FDEEDA;--sbadge:#F3E5D0;--sbandc:#D4C8C4}
 .l-type{z-index:9;display:grid;place-items:center;padding:0 5vw;text-align:center}
 #type,#type2{color:var(--paper)}
 #type2{z-index:11}
@@ -86,8 +95,9 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
    on top puts it back */
 .bg .grain{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.28;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-/* Section 1: the supplied loop (media/section1.mp4); the gradient only shows if the video can't play */
-.bg.s1{--b0:#141E7A;--b1:rgba(84,64,206,.9);--b2:rgba(205,145,233,.45);--b3:rgba(43,75,224,.8)}
+/* Section 1: the supplied loop (media/section1.mp4). It's the first thing on screen, so its gradient is matched to the
+   loop's own light blues: a dark one here flashed up before the poster arrived */
+.bg.s1{--b0:#6291F7;--b1:rgba(118,166,252,.9);--b2:rgba(63,111,242,.6);--b3:rgba(130,170,252,.7)}
 /* Section 2: the supplied loop (media/section2.mp4), behind the cards and the tee-up; the gradient is its fallback */
 .bg.s2{--b0:#2445D8;--b1:rgba(111,143,247,.85);--b2:rgba(193,150,233,.6);--b3:rgba(142,165,250,.7)}
 /* the brand reveal: the supplied loop (media/reveal.mp4); the gradient is its fallback. Its clouds are nearly white,
@@ -119,9 +129,9 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 .tour svg{display:block;width:13px;height:13px;fill:currentColor}
 /* going back along one background: the background stays and only what's on it fades, swapping while it's hidden.
    (!important holds these at 0 over the animation's own values until the swap is done.) */
-.film.backing :is(#open,#stats,#type,#type2,#brandLock,#conWrap,.emp-group,#ribbon,#ask,#join,#endSky){transition:opacity .3s ease}
+.film.backing :is(#open,#stats,#type,#type2,#brandLock,#conWrap,#conWrap2,#conRibbon,.emp-group,#ribbon,#ask,#join,#endSky){transition:opacity .3s ease}
 .film.backing .tint{transition:opacity .4s ease}
-.film.fg-out :is(#open,#stats,#type,#type2,#brandLock,#conWrap,.emp-group,#ribbon,#ask,#join,#endSky){opacity:0!important;transition:opacity .16s ease}
+.film.fg-out :is(#open,#stats,#type,#type2,#brandLock,#conWrap,#conWrap2,#conRibbon,.emp-group,#ribbon,#ask,#join,#endSky){opacity:0!important;transition:opacity .16s ease}
 /* going back to a different background: the screen dips through the brand blue and comes up on the section before */
 .dip{position:fixed;inset:0;z-index:40;background:var(--blue);opacity:0;visibility:hidden;pointer-events:none}
 
@@ -148,43 +158,48 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 /* ---------- the opening line, straight into the story ---------- */
 .t18{position:absolute;left:4vw;right:4vw;text-wrap:balance;top:50%;transform:translateY(-50%);margin:0;text-align:center;font-size:clamp(40px,6.6vw,128px);font-weight:900;line-height:1.04;letter-spacing:-.035em;color:var(--cream);text-shadow:0 2px 24px rgba(20,42,154,.35)}
 
-/* ---------- the stats: both cards in one frame, 40% on the left, a thin line drawing behind them ---------- */
-.sworld{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:clamp(14px,2.2vw,40px);padding:6vh 4vw 0}
+/* ---------- the stats: two tilted cards on a night-blue loop, a thick cream
+   band sweeping behind them (the v7 redesign) ---------- */
+.sworld{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:4vh 4vw 0}
 .spath{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none}
 .spath path{fill:none;stroke-linecap:butt;stroke-linejoin:round}
-/* the squiggle runs from cream on the left to the brand's Electric Lavender on the right, and carries no words */
-.sband{stroke:url(#sbandFade)}
-.stat-card{position:relative;flex:0 1 auto;width:min(34vw,560px);box-shadow:0 24px 60px rgba(6,10,38,.35);padding:clamp(64px,7vw,120px) clamp(28px,4vw,72px) clamp(36px,4vw,72px);border-radius:18px;text-align:center;will-change:transform}
-/* the same cloudy blue as the blue section: a gradient with soft blurred blobs and a fine dot texture */
-.card-bg{position:absolute;inset:0;border-radius:inherit;overflow:hidden;z-index:-1;background:linear-gradient(155deg,#2B4BE0 0%,#1D3BCE 45%,#4F72F0 100%)}
-.card-bg i{position:absolute;border-radius:50%;filter:blur(40px);opacity:.6;animation:drift 14s ease-in-out infinite alternate}
-.card-bg i:nth-child(1){width:70%;height:90%;left:-20%;top:-35%;background:#6F8FF7}
-.card-bg i:nth-child(2){width:60%;height:80%;right:-18%;bottom:-40%;background:#8EA5FA;animation-delay:-6s}
-.card-bg::after{content:"";position:absolute;inset:0;opacity:.35;background-image:radial-gradient(rgba(255,255,255,.28) 1px,transparent 1.4px);background-size:7px 7px}
-.stat-card > :not(.card-bg){position:relative}
-.stat-card .sticker{position:absolute}
-.card-a,.card-b{color:var(--paper);isolation:isolate}
-/* the stat cards wear the last two 'What you get' backgrounds, with all their type in white as on those cards */
-.card-a .card-bg{background:url(assets/cards/card-4.webp) center / cover no-repeat}
-.card-b .card-bg{background:url(assets/cards/card-3.webp) center / cover no-repeat}
-.stat-card .card-bg i,.stat-card .card-bg::after{display:none}
-.card-a,.card-b{text-shadow:0 1px 14px rgba(20,30,110,.25)}
-.stat-card.card-a .kicker,.stat-card.card-b .kicker,.stat-card .x3{color:#fff}
-.stat-card h3{margin:0;font-size:clamp(76px,10vw,190px);font-weight:900;line-height:.86;letter-spacing:-.05em}
-/* who the number is about, big enough to read at a glance and in the brand lime */
-.stat-card .kicker{display:block;margin-top:.35em;color:#C8F08F;font-size:clamp(18px,1.9vw,34px);font-weight:900;letter-spacing:.04em;line-height:1.05;text-transform:uppercase}
-/* the 3× pops in the lime of the labels, a step up from the line but well short of the number */
-.x3{color:#C8F08F;font-size:1.45em;font-weight:900;letter-spacing:-.02em;line-height:.9}
-/* the phrase that joins the two cards is the point of this frame: it lands big, on its own, before the second card */
-.vs{position:relative;flex:0 0 auto;margin:0;color:var(--cream);text-shadow:0 1px 3px rgba(20,42,154,.55),0 2px 20px rgba(20,42,154,.6);font-size:clamp(26px,3.4vw,64px);font-weight:900;letter-spacing:-.03em;line-height:1;text-align:center;white-space:nowrap}
-.stat-card p{margin:.55em auto 0;max-width:20ch;font-size:clamp(20px,2.1vw,38px);font-weight:800;line-height:1.12;letter-spacing:-.015em}
-.sticker{position:absolute;left:50%;top:0;width:clamp(88px,8.5vw,150px);aspect-ratio:1;border-radius:50%;background:var(--paper);display:grid;place-items:center;box-shadow:0 8px 24px rgba(42,42,42,.18)}
-.sticker .ico{width:60%;height:60%;color:var(--blue)}
+.sband{stroke:var(--sbandc)}
+/* the card turns about its badge; its face (gradient and words) fades up as it fans out, the badge already there */
+.stat-card{--cw:min(27vw,62vh,500px);position:relative;flex:0 0 auto;width:var(--cw);aspect-ratio:1;color:var(--sc);text-align:center;will-change:transform}
+.card-face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:calc(var(--cw) * .1);border-radius:calc(var(--cw) * .035);box-shadow:0 22px 50px rgba(4,8,40,.45)}
+.card-a .card-face{transform-origin:0 0;background:linear-gradient(135deg,#2441D2 0%,#4565DF 50%,#6D8FF3 100%)}
+.card-b .card-face{transform-origin:100% 0;background:radial-gradient(130% 130% at 0% 0%,#DE6AF0 0%,#9A55E4 30%,#5E48DC 62%,#2A3DD2 100%)}
+.stat-card .sticker{z-index:1}
+/* the 40% card: a straight blue gradient, deep at the top left to periwinkle at the bottom right */
+.card-a{z-index:2;margin-top:calc(var(--cw) * -.32)}
+/* the 3x card: a pink-violet glow from its top-left corner, deepening into the brand blue */
+.card-b{z-index:1;margin-top:calc(var(--cw) * .38)}
+.stat-card h3{margin:0;font-size:calc(var(--cw) * .4);font-weight:900;line-height:.86;letter-spacing:-.045em}
+.card-b h3{font-size:calc(var(--cw) * .37)}
+.stat-card .kicker{display:block;margin-top:.7em;font-size:calc(var(--cw) * .068);font-weight:800;letter-spacing:.005em;line-height:1.05;text-transform:uppercase}
+.stat-card p{margin:.45em auto 0;max-width:none;font-size:calc(var(--cw) * .064);font-weight:600;line-height:1.15;letter-spacing:-.005em}
+.card-a h3 + .kicker{margin-top:.55em}
+.card-a .kicker + p{margin-top:.4em}
+.card-b p{max-width:13ch;margin-top:.55em}
+/* the 3x reads on from the 40%: a small lead-in above the number */
+.card-b .pre{display:block;margin-bottom:.3em;font-size:calc(var(--cw) * .076);font-weight:700;line-height:1;letter-spacing:-.01em}
+/* the round badges sit on a corner of each card: the starburst top left of the 40%, the spark top right of the 3x */
+.sticker{position:absolute;width:calc(var(--cw) * .17);aspect-ratio:1;border-radius:50%;background:var(--sbadge);display:grid;place-items:center;box-shadow:0 6px 18px rgba(4,8,40,.3)}
+.card-a .sticker{left:0;top:0}
+.card-b .sticker{left:100%;top:0}
+.sticker svg{width:68%;height:68%;display:block}
+.sticker .burst{fill:var(--blue)}
 
 /* ---------- the story types out ---------- */
 .tgroup{grid-area:1 / 1;width:min(1560px,90vw)}
 .tl{margin:0;font-size:clamp(36px,6.2vw,112px);font-weight:900;letter-spacing:-.035em;line-height:1.04}
 .tl + .tl{margin-top:.35em}
+/* the second line of each statement, a step down from the first so the longer lines sit in two or three rows */
+.tl.sub{font-size:clamp(30px,4.6vw,84px);line-height:1.08}
+.tl + .tl.sub{margin-top:.5em}
+/* talent's qualities are one selection, wrapped line by line like the connects highlight */
+#skillHl{--s:0;--h:0}
 /* lines break evenly rather than leaving one word stranded, most noticeably on a phone */
 .tl,.connects,.ask-t,.ask-p{text-wrap:balance}
 .ch{opacity:0}
@@ -230,7 +245,7 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 /* the title and the cards sit together in the middle of the screen */
 .emp-group{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;padding-top:40px;pointer-events:none}
 /* the title sits just above the cards, the two centred together */
-.emp-t{position:relative;z-index:2;margin:0;text-align:center;font-size:clamp(22px,2.6vw,44px);font-weight:800;letter-spacing:-.015em}
+.emp-t{position:relative;z-index:2;margin:0;padding:0 4vw;text-align:center;text-wrap:balance;font-size:clamp(34px,4.6vw,88px);font-weight:900;line-height:1.02;letter-spacing:-.03em}
 .cards{position:relative;width:100%;display:flex;justify-content:center;padding:0 4vw}
 .card{position:relative;flex:0 0 auto;text-align:center;width:min(22.5vw,350px);height:min(40vh,390px);margin:0 -.5vw;display:flex;flex-direction:column;
   background:var(--bg);color:var(--blue);border-radius:10px;box-shadow:0 18px 40px rgba(6,10,38,.28);overflow:hidden;will-change:transform}
@@ -255,6 +270,17 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 /* centred by GSAP percentages (not a CSS transform), so their own moves never undo the centring */
 .con-wrap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(90vw,1300px);display:flex;flex-direction:column;align-items:center;gap:clamp(24px,4vh,48px)}
 .connects{text-shadow:0 2px 16px rgba(20,42,154,.5);margin:0;text-align:center;font-size:clamp(30px,4vw,76px);font-weight:900;line-height:1.08;letter-spacing:-.03em}
+/* the internships are picked out in the brand lime */
+#conHl{color:#C8F08F}
+/* the second connects line: what Wingspan handles, selected in lilac */
+#conHl2{--s:0;--h:0}
+/* the connects canvas: the size of the screen, moved as one. The second sentence sits a screen down and a little over
+   half a screen right of the first, and the band runs diagonally between them, so a single glide of the canvas
+   carries the first sentence and the band up and out to the top left as the second arrives from the bottom right */
+.con-world{position:absolute;inset:0;will-change:transform}
+#conWrap2{left:105%;top:155%}
+.con-ribbon{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:0}
+.con-wrap{z-index:1}
 
 .ask{position:absolute;left:50%;top:50%;width:min(92vw,1300px);display:flex;flex-direction:column;align-items:center;gap:clamp(16px,2vw,28px);text-align:center}
 /* the close: the hero's clouds rise back up from the bottom behind the ask, so the page ends where it began */
@@ -263,8 +289,7 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 .end-sky video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .ask{text-shadow:0 2px 24px rgba(20,42,154,.4)}
 .ask-t{margin:0;max-width:22ch;font-size:clamp(34px,5.2vw,96px);font-weight:900;line-height:1.04;letter-spacing:-.03em}
-/* '20 visionary employers' carries the ask: lilac bar, as the story's key words */
-/* '20 visionary employers' takes the same lollipop selection as the story, and never breaks across lines */
+/* '20 purpose-led employers' takes the same lollipop selection as the story, and never breaks across lines */
 #askHl{white-space:nowrap}
 /* on the join, 'London pilot' takes the lollipop selection in green, the colour for the positive */
 #joinHl{white-space:nowrap}
@@ -274,8 +299,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 .book{display:inline-block;pointer-events:auto;padding:.7em 1.3em;border-radius:999px;background:var(--lilac);color:#fff;font-size:clamp(17px,1.6vw,26px);font-weight:800;line-height:1;text-decoration:none;box-shadow:0 10px 28px rgba(6,10,38,.28);transition:transform .2s ease,background .2s ease}
 .book:hover{transform:scale(1.04);background:#B672E0}
 .book:focus-visible{outline:3px solid var(--cream);outline-offset:3px}
-.join-t{font-size:clamp(44px,7.4vw,140px)}
-.ask-logo{width:clamp(180px,22vw,360px);margin-top:clamp(10px,2vh,28px);color:var(--cream)}
+.join-t{font-size:clamp(40px,6vw,114px)}
+.ask-logo{width:clamp(210px,28vw,460px);margin-top:clamp(14px,3vh,40px);color:var(--cream)}
 .ask-logo svg{display:block;width:100%;height:auto;fill:currentColor}
 .ask-p{margin:0;max-width:30ch;color:#F3E6FC;font-size:clamp(20px,2.3vw,38px);font-weight:700;line-height:1.2}
 @keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(6vw,-4vw) scale(1.12)}100%{transform:translate(-5vw,5vw) scale(.94)}}
@@ -291,7 +316,9 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 .ribbon-band{fill:none;stroke:var(--cream);stroke-linecap:butt;stroke-linejoin:round}
 /* the brand reveal: the mark and its tagline locked up as in the hero, centred in their own frame */
 .brand-lock{--lw:clamp(280px,min(66vw,130vh),1000px);position:absolute;left:50%;top:50%;width:var(--lw)}
-.brand-lock .tagline{top:87%}
+/* the v7 lockup: the tagline set bigger and tighter, filling the width from just right of the p's descender to
+   the end of the n (matched to the supplied LogoTagline.svg) */
+.brand-lock .tagline{left:68.3%;top:91%;font-size:calc(var(--lw) * .032);line-height:.88;font-weight:500;letter-spacing:0}
 .mark-big{position:relative;width:100%;aspect-ratio:1634 / 564;color:var(--cream);filter:drop-shadow(0 6px 40px rgba(20,42,154,.45))}
 .mark-big svg{display:block;width:100%;height:100%;overflow:visible;fill:currentColor}
 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12em;margin-bottom:-.12em}
@@ -301,22 +328,21 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 .film.static{height:auto;overflow:visible}
 .film.static .layer{position:relative;height:100vh}
 .film.static #type,.film.static #type2{color:var(--ink)}
-.film.static #bgA,.film.static .bmark{display:none}
+.film.static #bgA,.film.static #bgS,.film.static .bmark{display:none}
 
 @media (max-width:720px){
   .sworld{flex-direction:column;gap:10px}
-  .stat-card{width:86vw;padding:48px 24px 24px}
-  .stat-card h3{font-size:64px}
-  .sticker{width:72px}
-  /* stacked, the second card's sticker rises over the gap, so 'compared to' keeps clear of it */
-  .vs{margin:2px 0 32px;font-size:34px}
+  /* stacked on a phone: the 40% card up and to the left, the 3x down and to the right, */
+  .sworld{flex-direction:column;padding:0 4vw}
+  .stat-card{--cw:min(64vw,37vh)}
+  .card-a{margin:0 16vw 0 0}
+  .card-b{margin:0 0 0 16vw}
   #joinP{font-size:min(18px,4.8vw);white-space:nowrap}
-  .connects br{display:none}
-  /* the brand reveal: the mark fills the width, its tagline set beneath it at a size a phone can read */
-  .brand-lock{--lw:86vw}
+  .connects br:not(.keep){display:none}
+  /* the brand reveal: the lockup fills the width, its tagline kept where the supplied lockup has it */
+  .brand-lock{--lw:92vw}
   .ask-t{font-size:29px}
-  .ask-t.join-t{font-size:44px}
-  .brand-lock .tagline{position:static;margin-top:18px;text-align:center;white-space:normal;font-size:17px}
+  .ask-t.join-t{font-size:40px}
   .cards{flex-wrap:wrap;gap:12px}
   /* as tall as their words need, at least a quarter of the screen, so nothing is clipped on a short phone */
   .card{width:44vw;height:auto;min-height:27vh;margin:0}
@@ -363,6 +389,8 @@ html.stepped,html.stepped body{height:100%;overflow:hidden;overscroll-behavior:n
   </section>
 
   <div class="layer" id="bgA" aria-hidden="true"><div class="bg s1"><video src="media/section1.mp4" poster="media/section1.jpg" muted loop playsinline autoplay preload="auto"></video><span class="grain"></span></div></div>
+  <!-- the stats have their own night-blue loop, fading up over Section 1 while they're on screen -->
+  <div class="layer" id="bgS" aria-hidden="true"><div class="bg ss"><video src="media/stats.mp4" poster="media/stats.jpg" muted loop playsinline preload="auto"></video><span class="tint"></span></div></div>
 
   <section class="layer l-open" id="open">
     <p class="t18" id="t18">At 18, young people leaving the care system often face adulthood alone.</p>
@@ -372,19 +400,20 @@ html.stepped,html.stepped body{height:100%;overflow:hidden;overscroll-behavior:n
     <div class="sworld" id="sworld">
       <svg class="spath" id="spath" aria-hidden="true"></svg>
       <article class="stat-card card-a" id="cardA">
-        <span class="card-bg" aria-hidden="true"><i></i><i></i></span>
-        <span class="sticker" aria-hidden="true"><span class="ico impact"></span></span>
-        <h3>40%</h3>
-        <span class="kicker">Of care leavers</span>
-        <p>are out of work, education or training by their early 20s.</p>
+        <span class="sticker" aria-hidden="true"><svg viewBox="0 0 100 100"><path class="burst" d="M50 6L57.7 31.5L81.1 18.9L68.5 42.3L94 50L68.5 57.7L81.1 81.1L57.7 68.5L50 94L42.3 68.5L18.9 81.1L31.5 57.7L6 50L31.5 42.3L18.9 18.9L42.3 31.5Z"/></svg></span>
+        <div class="card-face">
+          <h3>40%</h3>
+          <span class="kicker">Of care leavers</span>
+          <p>are out of work,<br> education or training<br> by their early 20s.</p>
+        </div>
       </article>
-      <p class="vs" id="vs">compared to</p>
       <article class="stat-card card-b" id="cardB">
-        <span class="card-bg" aria-hidden="true"><i></i><i></i></span>
-        <span class="sticker" aria-hidden="true"><span class="ico stay"></span></span>
-        <h3>13%</h3>
-        <span class="kicker">Of their peers</span>
-        <p>That’s <span class="x3">3×</span> the rate.</p>
+        <span class="sticker" aria-hidden="true"><svg viewBox="0 0 100 100"><defs><linearGradient id="spark" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#CD91E9"/><stop offset=".55" stop-color="#5B4BDF"/><stop offset="1" stop-color="#1D3BCE"/></linearGradient></defs><path fill="url(#spark)" d="M50 8C53 36 64 47 92 50C64 53 53 64 50 92C47 64 36 53 8 50C36 47 47 36 50 8Z"/></svg></span>
+        <div class="card-face">
+          <span class="pre">That’s</span>
+          <h3>3x</h3>
+          <p>the rate of their peers (13%)</p>
+        </div>
       </article>
     </div>
   </section>
@@ -392,14 +421,14 @@ html.stepped,html.stepped body{height:100%;overflow:hidden;overscroll-behavior:n
   <section class="layer l-type" id="type" aria-label="Care leavers">
     <div class="tgroup" id="groupA">
       <h2 class="tl" data-type>Care leavers don’t lack talent.</h2>
-      <p class="tl" id="skillsLine">They’re <span class="nw"><span class="sel lil q">resilient</span>,</span> <span class="nw"><span class="sel lil q">driven</span></span> and <span class="sel lil q">loyal.</span></p>
+      <p class="tl sub" id="skillsLine">Life has made them <span id="skillHl">resilient and driven self&#8209;starters.</span></p>
     </div>
   </section>
 
   <section class="layer l-type" id="type2" aria-label="Access">
     <div class="tgroup" id="groupB">
       <h2 class="tl" data-type>They lack <span class="sel go" id="accessHl">access.</span></h2>
-      <p class="tl" id="routesLine">Traditional hiring routes weren’t built for them...</p>
+      <p class="tl sub" id="routesLine">No connections. No safety net.<br> Real potential with no route into work…</p>
     </div>
   </section>
 
@@ -416,8 +445,16 @@ html.stepped,html.stepped body{height:100%;overflow:hidden;overscroll-behavior:n
       <div class="mark-big" id="markBig" aria-hidden="true"></div>
       <p class="tagline" id="brandTag"><span class="ln"><span>Bringing a wider world</span></span><span class="ln"><span>of work within reach.</span></span></p>
     </div>
+    <!-- what Wingspan does, on one canvas the camera glides across diagonally: this sentence first, then down and to the
+         right, past a cream band, the second -->
+    <div class="con-world" id="conWorld">
     <div class="con-wrap" id="conWrap">
-      <p class="connects" id="connects">Wingspan makes it easy to hire <br>care-experienced young people, <br><span id="conHl">and supports you both until the job&nbsp;sticks.</span></p>
+      <p class="connects" id="connects">Wingspan matches care&#8209;experienced <br>young people with <span id="conHl">3&#8209;month internships</span> <br>at leading organisations.</p>
+    </div>
+    <svg class="con-ribbon" id="conRibbon" aria-hidden="true"></svg>
+    <div class="con-wrap" id="conWrap2">
+      <p class="connects" id="connects2">We support the intern and employer until the job sticks – handling <br><span id="conHl2">recruitment, mentorship, onboarding <br class="keep">and&nbsp;beyond.</span></p>
+    </div>
     </div>
   </section>
 
@@ -426,21 +463,21 @@ html.stepped,html.stepped body{height:100%;overflow:hidden;overscroll-behavior:n
     <svg class="ribbon" id="ribbon" aria-hidden="true"></svg>
     <div class="end-sky" id="endSky" aria-hidden="true"><video data-src="media/day.mp4" poster="media/day.jpg" muted loop playsinline preload="auto"></video></div>
     <div class="emp-group">
-    <h2 class="emp-t" id="empT">What you get from this first-of-its-kind programme:</h2>
+    <h2 class="emp-t" id="empT">Why your business needs Wingspan</h2>
     <div class="cards">
-      <article class="card" style="--r:-4deg"><h3>Prepared candidates</h3><p>Mentored, job-ready, matched to your roles.</p><div class="art"><img src="assets/ic-prepared.svg" alt=""></div></article>
-      <article class="card" style="--r:3deg"><h3>Confident managers</h3><p>Practical guidance for your team from day one.</p><div class="art"><img src="assets/ic-support.svg" alt=""></div></article>
-      <article class="card" style="--r:-2deg"><h3>Hires that stay</h3><p>Ongoing support beyond the start date.</p><div class="art"><img src="assets/ic-stay.svg" alt=""></div></article>
-      <article class="card" style="--r:4deg"><h3>Impact that sets you apart</h3><p>Change a young person’s future for good.</p><div class="art"><img src="assets/ic-impact.svg" alt=""></div></article>
+      <article class="card" style="--r:-4deg"><h3>Proof you can share</h3><p>Earn our equitable hiring accreditation, with results to report.</p><div class="art"><img src="assets/ic-prepared.svg" alt=""></div></article>
+      <article class="card" style="--r:3deg"><h3>First-mover status</h3><p>Set the standard on inclusion in your industry.</p><div class="art"><img src="assets/ic-support.svg" alt=""></div></article>
+      <article class="card" style="--r:-2deg"><h3>A founding network</h3><p>Events and shared learning with like-minded businesses.</p><div class="art"><img src="assets/ic-impact.svg" alt=""></div></article>
+      <article class="card" style="--r:4deg"><h3>Talent that stays</h3><p>Widen your hiring pool, with backup built in.</p><div class="art"><img src="assets/ic-stay.svg" alt=""></div></article>
     </div>
     </div>
     <div class="ask" id="ask">
-      <h2 class="ask-t" id="askT">We’re looking for <span class="sel lil" id="askHl">20&nbsp;visionary&nbsp;employers</span> to launch Wingspan with us.</h2>
-      <p class="ask-p" id="askP">Be one of the first to redefine what’s possible from care to career.</p>
+      <h2 class="ask-t" id="askT">We’re looking for <span class="sel lil" id="askHl">20&nbsp;purpose&#8209;led&nbsp;employers</span> <span class="nw">to launch</span> Wingspan with&nbsp;us.</h2>
+      <p class="ask-p" id="askP">You could be one of the first to give care leavers the start they deserve.</p>
     </div>
     <div class="ask" id="join">
       <h2 class="ask-t join-t" id="joinT">Will you join us?</h2>
-      <p class="ask-p" id="joinP">Our <span class="sel go" id="joinHl">London&nbsp;pilot</span> begins February 2027.</p>
+      <p class="ask-p" id="joinP"><span class="sel go" id="joinHl">Our London pilot launches early&nbsp;2027.</span></p>
       <a class="book" id="joinBtn" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1lQsGgXBKxuBs3Hs2Dd2GLIReO2FpkgyuR0H7JJZsQePAcRXFmAlbY2mN5q43rniNbnLC2kqsW" target="_blank" rel="noopener">Book a time to learn more</a>
       <div class="ask-logo" id="joinLogo" role="img" aria-label="Wingspan"></div>
     </div>
@@ -566,7 +603,7 @@ function chaikin(pts) {
   out.push(pts[pts.length - 1]);
   return out;
 }
-const S = { p1: 0, p2: 0 }, RIBBONS = [];
+const S = { p1: 0, p2: 0, p3: 0 }, RIBBONS = [];
 const svgNS = 'http://www.w3.org/2000/svg';
 const mk = (tag, attrs, parent) => { const el = document.createElementNS(svgNS, tag); Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v)); parent && parent.append(el); return el; };
 function buildStats() {
@@ -584,22 +621,35 @@ function buildStats() {
     }
     return { pts, mids: [] };
   };
+  // the stats band (v7): low off the left edge, rising to run level behind both cards, then sweeping up off the
+  // top right; on a portrait screen it runs top to bottom behind the stacked cards instead
+  const sBand = () => {
+    const P = W > H * 0.9
+      ? [[-0.04, 0.96], [0.06, 0.8], [0.16, 0.6], [0.3, 0.52], [0.5, 0.52], [0.7, 0.52], [0.82, 0.45], [0.92, 0.28], [1.04, 0.04]]
+      : [[0.08, -0.04], [0.2, 0.1], [0.42, 0.22], [0.5, 0.5], [0.58, 0.78], [0.8, 0.9], [0.92, 1.04]];
+    let pts = P.map(([x, y]) => ({ x: x * W, y: y * H }));
+    for (let k = 0; k < 3; k++) pts = chaikin(pts);
+    return { pts, mids: [] };
+  };
+  const conBand = () => {
+    const P = [[-0.25, 0.7], [0.15, 0.78], [0.5, 0.86], [0.8, 1.02], [1.05, 1.22], [1.35, 1.32], [1.8, 1.36]];
+    let pts = P.map(([x, y]) => ({ x: x * W, y: y * H }));
+    for (let k = 0; k < 3; k++) pts = chaikin(pts);
+    return { pts, mids: [] };
+  };
   const routes = [
-    // cream, behind the stats: from high on the left edge, down behind both cards and off the right edge
-    { svg: '#spath', key: 'p1', band: 'sband', ...wave([-0.12, 0.18], [1.14, 0.86], M * 0.12, 1.5) },
+    { svg: '#spath', key: 'p1', band: 'sband', sw: Math.max(30, Math.min(W, H) * 0.058), ...sBand() },
     // and behind the employer cards: its mirror, from low on the left up to the top right
     // (a little lower and flatter than a true mirror, so it passes beneath the title)
-    { svg: '#ribbon', key: 'p2', band: 'ribbon-band', ...wave([-0.12, 0.94], [1.14, 0.36], M * 0.12, 1.5) }
+    { svg: '#ribbon', key: 'p2', band: 'ribbon-band', ...wave([-0.12, 0.94], [1.14, 0.36], M * 0.12, 1.5) },
+    // and on the connects canvas: from off the left of the first view, under the first sentence, diagonally down
+    // and over the second sentence, off the right of the second view
+    { svg: '#conRibbon', key: 'p3', band: 'ribbon-band', ...conBand() }
   ];
-  routes.forEach(({ pts, svg: sel, key, band: bandClass }, li) => {
+  routes.forEach(({ pts, svg: sel, key, band: bandClass, sw: bw }, li) => {
     const svgEl = $(sel);
     svgEl.setAttribute('viewBox', `0 0 ${W} ${H}`);
     svgEl.innerHTML = '';
-    if (bandClass === 'sband') {
-      const fade = mk('linearGradient', { id: 'sbandFade', gradientUnits: 'userSpaceOnUse', x1: 0, y1: 0, x2: W, y2: 0 }, mk('defs', {}, svgEl));
-      mk('stop', { offset: 0, 'stop-color': '#EFEEEA' }, fade);
-      mk('stop', { offset: 1, 'stop-color': '#CD91E9' }, fade);
-    }
     const smooth = pts;
     const { start, segs } = splineParts(smooth), f = n => n.toFixed(1);
     const from = i => `M${f(smooth[i].x)} ${f(smooth[i].y)}`;
@@ -609,7 +659,7 @@ function buildStats() {
     for (let i = 0; i < cuts.length - 1; i++) {
       const d = from(cuts[i]) + segs.slice(cuts[i], cuts[i + 1]).join('');
       const band = mk('path', { class: bandClass, d }, g);
-      band.style.strokeWidth = sw;
+      band.style.strokeWidth = bw || sw;
       const len = band.getTotalLength();
       band.style.strokeDasharray = len;
       pieces.push({ band, start: run, len }); run += len;
@@ -681,23 +731,24 @@ function renderType() {
   else caret.remove();
 }
 
-const w18 = splitWords($('#t18')), wCon = splitWords($('#connects'));
+const w18 = splitWords($('#t18')), wCon = splitWords($('#connects')), wConB = splitWords($('#connects2'));
 // the second line of each statement rises in whole, all at once, rather than typing
 const wSkills = splitWords($('#skillsLine')), wRoutes = splitWords($('#routesLine'));
-const wCon2 = [...$('#conHl').querySelectorAll('.w > span')], wCon1 = wCon.filter(w => !wCon2.includes(w));
 // where a word sits on screen, to the line (the wrapping selections are positioned, so offsetTop won't do)
 const lineTop = el => Math.round(el.getBoundingClientRect().top / 4);
 // which visual line a word of the 'connects' sentence sits on, so its mask reveal runs line by line
-const conLine = el => { const tops = [...new Set(wCon.map(w => lineTop(w.parentElement)))].sort((a, b) => a - b); return Math.max(0, tops.indexOf(lineTop(el.parentElement))); };
+const lineOf = words => el => { const tops = [...new Set(words.map(w => lineTop(w.parentElement)))].sort((a, b) => a - b); return Math.max(0, tops.indexOf(lineTop(el.parentElement))); };
+const conLine = lineOf(wCon), conLineB = lineOf(wConB);
 // the highlighted phrase is wrapped line by line into selections, wherever the text happens to break; measured
 // before anything moves, and again whenever the layout is rebuilt
-function wrapLines() {
-  const hl = $('#conHl');
+function wrapLines(hl) {
   hl.querySelectorAll('.line').forEach(l => l.replaceWith(...l.childNodes));
   const nodes = [...hl.childNodes], tops = nodes.map(n => n.nodeType === 1 ? lineTop(n) : null);
   let group = null, top = null, space = null;
   nodes.forEach((n, i) => {
     if (n.nodeType !== 1) { space = n; return; }
+    // a forced break inside the phrase ends the selection; the next word starts a new one on the line below
+    if (n.tagName === 'BR') { group = null; space = null; return; }
     if (!group || tops[i] !== top) {
       group = document.createElement('span'); group.className = 'sel lil line'; n.before(group); top = tops[i];
     } else if (space) group.append(space);
@@ -714,7 +765,8 @@ function wrapLines() {
     prev.append(...ls[i].childNodes); ls[i].remove();
   }
 }
-wrapLines();
+const wrapAll = () => ['#skillHl', '#conHl2'].forEach(id => wrapLines($(id)));
+wrapAll();
 
 if (reduce) {
   document.documentElement.classList.add('ready');
@@ -723,7 +775,7 @@ if (reduce) {
   buildStats(); S.p1 = S.p2 = 1; drawStats();
   typeLines.forEach((ln, i) => { T[i] = ln.chars.length; }); renderType(); caret.remove();
   gsap.set('.hl', { backgroundSize: '100% 46%' });
-  gsap.set(['.sel', '#conHl'], { '--s': 1, '--h': 1 });
+  gsap.set(['.sel', '#skillHl', '#conHl2'], { '--s': 1, '--h': 1 });
   gsap.set(['#ask', '#join', '#brandLock'], { xPercent: -50, yPercent: -50 });
 } else {
   const cards = gsap.utils.toArray('.card');
@@ -734,19 +786,25 @@ if (reduce) {
   gsap.set(w18, { yPercent: 108 });
   // the 'connects' words start below their masks, slightly tilted, ready to rise in line by line
   gsap.set(wCon, { yPercent: 115, rotation: 4 });
+  // the second sentence writes itself out: each word fading up out of a blur, one after another
+  gsap.set(wConB, { opacity: 0, y: 14, filter: 'blur(6px)' });
   gsap.set([...wSkills, ...wRoutes], { yPercent: 110 });
   gsap.set('#stats', { autoAlpha: 0 });
   gsap.set('.sticker', { xPercent: -50, yPercent: -50, scale: 0, rotation: -60 });
-  // the cards wait just below the fold, so they arrive the moment the opening line moves on
-  gsap.set('#cardA', { y: () => innerHeight * 0.9, scale: 0.92, rotation: -7 });
-  gsap.set('#cardB', { y: () => innerHeight * 1.05, scale: 0.92, rotation: 7 });
-  gsap.set('#vs', { autoAlpha: 0, y: 30, scale: 0.7 });
+  // each card grows out of its badge: the 40% from its top-left corner, the 3x from its top-right
+  gsap.set('#cardA', { rotation: -5, autoAlpha: 0 });
+  gsap.set('.card-face', { scale: 0, opacity: 0 });
+  gsap.set('#cardB', { rotation: 7, autoAlpha: 0 });
+  gsap.set('#bgS', { autoAlpha: 0 });
   gsap.set('#until', { autoAlpha: 0 });
   gsap.set('.until-t', { yPercent: 30, opacity: 0 });
   gsap.set(['#brand', '#employers'], { autoAlpha: 0 });
   // the title rides in with the cards, from below, so it never waits alone far above them
   gsap.set('#empT', { y: () => innerHeight * 1.05, opacity: 0 });
   gsap.set(['#ask', '#join', '#brandLock'], { xPercent: -50, yPercent: -50 });
+  gsap.set('#conWrap2', { autoAlpha: 0 });
+  // centred by GSAP percentages, so its move into the corner adds to the centring rather than replacing it
+  gsap.set(['#conWrap', '#conWrap2'], { xPercent: -50, yPercent: -50, x: 0, y: 0 });
   // the same entrance as the hero mark: it rises in and the wing fans open from the top feather down
   gsap.set('#markBig', { opacity: 0, yPercent: 14, scale: 0.94, transformOrigin: '50% 60%' });
   // the close arrives in parts: the headline, then its line (and on the join, the mark)
@@ -755,7 +813,7 @@ if (reduce) {
   gsap.set(cards, { y: () => innerHeight * 1.05, rotation: i => [-14, 10, -8, 16][i] });
 
   document.documentElement.classList.add('ready');
-  const buildAll = () => { wrapLines(); buildStats(); drawUntil(); };
+  const buildAll = () => { wrapAll(); buildStats(); drawUntil(); };
   buildAll();
   // sizes depend on the font and the window, so measure again once the font has loaded and after any resize
   document.fonts.ready.then(buildAll);
@@ -793,11 +851,16 @@ if (reduce) {
   const sb = $('#brand .bg video');
   let sbOn = false;
   const playSb = on => { if (on === sbOn) return; sbOn = on; on ? sb.play().catch(() => {}) : sb.pause(); };
+  // the stats loop plays only while its frame is up
+  const ss = $('#bgS video');
+  let ssOn = false;
+  const playSs = on => { if (on === ssOn) return; ssOn = on; on ? ss.play().catch(() => {}) : ss.pause(); };
   const tl = gsap.timeline({
     paused: true,
     defaults: { ease: 'none' },
     onUpdate() {
       renderType(); drawFan(); drawStats(); drawUntil(); markState(tl.time()); playS1(tl.time() < tl.labels.until + 1);
+      playSs(tl.time() > tl.labels.stats + 0.01 && tl.time() < tl.labels.blue1 + 0.6);
       playSb(tl.time() > tl.labels.until && tl.time() < tl.labels.cards + 0.6);
       playS2(tl.time() > tl.labels.cards && tl.time() < tl.labels.join + 1.1);
       playSky(tl.time() < (STORY ? -1 : 1.4) || tl.time() > tl.labels.join);
@@ -816,29 +879,33 @@ if (reduce) {
     .to(w18, { yPercent: 0, duration: 0.35, stagger: 0.03, ease: 'smooth-ease' }, 'handover+=0.3')
     .addLabel('r18', 'handover+=1')
 
-  // 3 · the opening line moves up and out; 40% rises in, then 'compared to', then its peers, the cream line
-  //     drawing behind them as they settle
+  // 3 · the opening line moves up and out over the stats' own loop; each card grows out of its badge, 40% then 3x,
+  //     the band behind
     .addLabel('stats', 'r18+=' + HOLD)
     .to('#open', { yPercent: -60, opacity: 0, duration: 0.6, ease: 'power2.in' }, 'stats')
+    .to('#bgS', { autoAlpha: 1, duration: 0.6, ease: 'sine.inOut' }, 'stats')
     .set('#stats', { autoAlpha: 1 }, 'stats')
-    .to(S, { p1: 1, duration: 2.5, ease: 'sine.inOut' }, 'stats+=0.1')
-    .to('#cardA', { y: 0, scale: 1, rotation: -2, duration: 0.7, ease: 'smooth-ease' }, 'stats+=0.2')
-    .fromTo('#cardA .sticker', { scale: 0, rotation: -140 }, { scale: 1, rotation: -8, duration: 0.5, ease: 'elastic-soft', immediateRender: false }, 'stats+=0.5')
-    .to('#vs', { autoAlpha: 1, y: 0, scale: 1, duration: 0.5, ease: 'smooth-ease' }, 'stats+=0.85')
-    .to('#cardB', { y: 0, scale: 1, rotation: 2, duration: 0.7, ease: 'smooth-ease' }, 'stats+=2.2')
-    .fromTo('#cardB .sticker', { scale: 0, rotation: -140 }, { scale: 1, rotation: 8, duration: 0.5, ease: 'elastic-soft', immediateRender: false }, 'stats+=2.5')
-    .addLabel('rStats', 'stats+=3')
+    .to(S, { p1: 1, duration: 2.2, ease: 'sine.inOut' }, 'stats+=0.1')
+    // the badge pops in first, then the card fans out from it
+    .set('#cardA', { autoAlpha: 1 }, 'stats+=0.4')
+    .fromTo('#cardA .sticker', { scale: 0, rotation: -140 }, { scale: 1, rotation: 0, duration: 0.5, ease: 'elastic-soft', immediateRender: false }, 'stats+=0.4')
+    .fromTo('#cardA .card-face', { scale: 0, rotation: -35, opacity: 0 }, { scale: 1, rotation: 0, opacity: 1, duration: 0.8, ease: 'back.out(1.15)', immediateRender: false }, 'stats+=0.6')
+    .set('#cardB', { autoAlpha: 1 }, 'stats+=1.5')
+    .fromTo('#cardB .sticker', { scale: 0, rotation: -140 }, { scale: 1, rotation: 0, duration: 0.5, ease: 'elastic-soft', immediateRender: false }, 'stats+=1.5')
+    .fromTo('#cardB .card-face', { scale: 0, rotation: 35, opacity: 0 }, { scale: 1, rotation: 0, opacity: 1, duration: 0.8, ease: 'back.out(1.15)', immediateRender: false }, 'stats+=1.7')
+    .addLabel('rStats', 'stats+=2.7')
 
   // 4 · Section 1 stays on (the clouds are saved for Wingspan): the stats lift away, the first line types, then the
   //     second rises in and each quality is selected in lilac, one after another
     .addLabel('blue1', 'rStats+=' + HOLD)
     // (fading by autoAlpha, so the same tween also hides the layer and puts it back when scrolling up)
     .to('#stats', { autoAlpha: 0, y: -60, filter: 'blur(6px)', duration: 0.45, ease: 'power2.in' }, 'blue1')
+    .to('#bgS', { autoAlpha: 0, duration: 0.5, ease: 'sine.inOut' }, 'blue1+=0.1')
     .addLabel('type', 'blue1+=0.45')
     .to(T, { 0: lens[0], duration: typeFor(0) }, 'type')
     .to(wSkills, { yPercent: 0, duration: 0.65, ease: 'smooth-ease' }, '>+0.45')
-    .to('#skillsLine .q', { '--h': 1, duration: 0.1, stagger: 0.22 }, '>-0.1')
-    .to('#skillsLine .q', { '--s': 1, duration: 0.35, stagger: 0.22, ease: 'smooth-ease' }, '<')
+    .to('#skillHl', { '--h': 1, duration: 0.1 }, '>-0.1')
+    .to('#skillHl', { '--s': 1, duration: 0.6, ease: 'smooth-ease' }, '<')
     .addLabel('rTalent', '>+0.05')
 
   // 5 · the talent lines lift away; access types and is selected in green, then its second line rises in
@@ -871,28 +938,37 @@ if (reduce) {
     .to('#markBig', { opacity: 1, yPercent: 0, scale: 1, duration: 0.6, ease: 'smooth-ease' }, 'brand+=0.1')
     .to(FAN2, { a: -200, duration: 0.8, ease: 'smooth-ease' }, 'brand+=0.2')
     .to('#brandTag .ln > span', { yPercent: 0, duration: 0.6, stagger: 0.12, ease: 'smooth-ease' }, 'brand+=0.8')
-    .addLabel('rBrand', 'brand+=1.6')
+    .addLabel('rBrand', 'brand+=1.6');
 
   // 9 · what Wingspan does, rising in line by line on the same living background
-    .addLabel('connects', 'rBrand+=' + HOLD)
+  tl.addLabel('connects', 'rBrand+=' + HOLD)
     .to('#brandLock', { y: -90, opacity: 0, duration: 0.4, ease: 'power2.in' }, 'connects')
     .to('#sbTint', { opacity: 0.5, duration: 0.6, ease: 'sine.inOut' }, 'connects')
-    .to(wCon1, { yPercent: 0, rotation: 0, duration: 0.7, stagger: (i, el) => conLine(el) * 0.16 + i * 0.012, ease: 'smooth-ease' }, 'connects+=0.35')
-    .to(wCon2, { yPercent: 0, rotation: 0, duration: 0.65, stagger: 0.045, ease: 'smooth-ease' }, 'connects+=1.1')
-    .to('#conHl', { '--h': 1, duration: 0.1 }, 'connects+=1.6')
-    .to('#conHl', { '--s': 1, duration: 0.5, ease: 'smooth-ease' }, 'connects+=1.6')
-    .addLabel('rConnects', 'connects+=2.15')
+    .to(wCon, { yPercent: 0, rotation: 0, duration: 0.7, stagger: (i, el) => conLine(el) * 0.16 + i * 0.012, ease: 'smooth-ease' }, 'connects+=0.35')
+    .addLabel('rConnects', 'connects+=1.6')
+
+  // 9b · what Wingspan handles, in one movement: the band starts drawing beneath the first sentence and the whole canvas
+  //      glides diagonally, carrying the first sentence and the band up and out to the top left as the second sentence
+  //      arrives from the bottom right, writing itself out word by word; then its services are selected in lilac
+    .addLabel('connects2', 'rConnects+=' + HOLD)
+    .to(S, { p3: 1, duration: 1.3, ease: 'power1.inOut' }, 'connects2')
+    .to('#conWorld', { xPercent: -55, yPercent: -105, duration: 1.7, ease: 'power3.inOut' }, 'connects2+=0.15')
+    .set('#conWrap2', { autoAlpha: 1 }, 'connects2+=0.5')
+    .to(wConB, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.5, stagger: 0.045, ease: 'power2.out' }, 'connects2+=1.05')
+    .to('#conHl2', { '--h': 1, duration: 0.1 }, '>-0.1')
+    .to('#conHl2', { '--s': 1, duration: 0.6, ease: 'smooth-ease' }, '<')
+    .addLabel('rConnects2', '>+0.05')
 
   // 10 · Section 2 comes up; the four cards rise and fan in, the ribbon drawing in behind them
-    .addLabel('cards', 'rConnects+=' + HOLD)
-    .to('#conWrap', { y: -90, opacity: 0, duration: 0.4, ease: 'power2.in' }, 'cards')
+    .addLabel('cards', 'rConnects2+=' + HOLD)
+    .to('#conWrap2', { y: -90, opacity: 0, duration: 0.4, ease: 'power2.in' }, 'cards')
     .fromTo('#employers', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, immediateRender: false }, 'cards+=0.15')
     .to('#empT', { y: 0, opacity: 1, duration: 0.75, ease: 'smooth-ease' }, 'cards+=0.22')
     .to(cards, { y: 0, yPercent: i => [4, 0, 6, 2][i], rotation: (i, el) => parseFloat(getComputedStyle(el).getPropertyValue('--r')), duration: 1, stagger: 0.28, ease: 'smooth-ease' }, 'cards+=0.3')
     .to(S, { p2: 1, duration: 1.6, ease: 'sine.inOut' }, 'cards+=0.15')
     .addLabel('rCards', 'cards+=2.2')
 
-  // 11 · the cards lift away and the tee-up lands on Section 2: 20 visionary employers
+  // 11 · the cards lift away and the tee-up lands on Section 2: 20 purpose-led employers
     .addLabel('ask', 'rCards+=' + HOLD)
     .to(cards, { y: () => -innerHeight * 1.1, rotation: i => [-10, 8, -6, 12][i], duration: 0.65, stagger: 0.08, ease: 'power2.in' }, 'ask')
     .to('#empT', { yPercent: -80, opacity: 0, duration: 0.4, ease: 'power2.in' }, 'ask')
@@ -919,7 +995,7 @@ if (reduce) {
 
   // the resting points: the opening line, then each beat once it has played
   // (Until now isn't one: one scroll from access plays it, holds it, and opens on into Wingspan)
-  const stops = ['r18', 'rStats', 'rTalent', 'rAccess', 'rBrand', 'rConnects', 'rCards', 'rAsk', 'rJoin'].slice(1);
+  const stops = ['r18', 'rStats', 'rTalent', 'rAccess', 'rBrand', 'rConnects', 'rConnects2', 'rCards', 'rAsk', 'rJoin'].slice(1);
   const startAt = tl.labels.r18;
   // there is no sky: the opening line rises in on its own over Section 1
   tl.time(startAt);
@@ -996,7 +1072,9 @@ if (reduce) {
   // which background a moment in the story sits on (0: mid-change, between two of them)
   const bgAt = t => {
     const L = tl.labels;
-    return t <= L.rAccess ? 1 : t < L.brand ? 0 : t <= L.rConnects ? 2 : t >= L.rCards ? 3 : 0;
+    if (t > L.stats && t <= L.rStats) return 4;
+    if (t > L.rStats && t < L.rStats + 0.6) return 0;
+    return t <= L.rAccess ? 1 : t < L.brand ? 0 : t <= L.rConnects2 ? 2 : t >= L.rCards ? 3 : 0;
   };
   function land() {
     if (dipTo !== null) tl.time(tlAt(dipTo));
