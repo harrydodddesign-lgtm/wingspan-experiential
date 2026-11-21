@@ -321,7 +321,9 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fd);-we
 .brand-lock .tagline{left:68.3%;top:91%;font-size:calc(var(--lw) * .032);line-height:.88;font-weight:500;letter-spacing:0}
 .mark-big{position:relative;width:100%;aspect-ratio:1634 / 564;color:var(--cream);filter:drop-shadow(0 6px 40px rgba(20,42,154,.45))}
 .mark-big svg{display:block;width:100%;height:100%;overflow:visible;fill:currentColor}
-.w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12em;margin-bottom:-.12em}
+/* each word rides in its own mask; the tight tracking pulls the last letter past the word's edge, so the mask is
+   widened on both sides (and pulled back so the spacing holds) */
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .08em .12em;margin:0 -.08em -.12em}
 .w > span{display:inline-block}
 
 /* reduced motion: the beats simply stack, everything shown at rest */
@@ -421,7 +423,7 @@ html.stepped,html.stepped body{height:100%;overflow:hidden;overscroll-behavior:n
   <section class="layer l-type" id="type" aria-label="Care leavers">
     <div class="tgroup" id="groupA">
       <h2 class="tl" data-type>Care leavers don’t lack talent.</h2>
-      <p class="tl sub" id="skillsLine">Life has made them <span id="skillHl">resilient and driven self&#8209;starters.</span></p>
+      <p class="tl sub" id="skillsLine">Life has made them <br><span id="skillHl">resilient and driven self&#8209;starters.</span></p>
     </div>
   </section>
 
